@@ -1,7 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, MapPin, Linkedin, Github, Send, Copy, Check, ArrowRight } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Linkedin,
+  Github,
+  Send,
+  Copy,
+  Check,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 
 export default function ContactPage() {
   const [copied, setCopied] = useState(false);
@@ -11,7 +22,11 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
-  const [status, setStatus] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   const emailAddress = "jayshankartavanoji2020@gmail.com";
 
@@ -21,15 +36,42 @@ export default function ContactPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(
-      formData.subject || `Message from ${formData.name}`
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    )}`;
-    window.location.href = mailtoUrl;
-    setStatus("Opening your email client...");
+    setIsSubmitting(true);
+    setFeedback(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setFeedback({
+          type: "success",
+          message:
+            "Your message was sent directly to my inbox! I will get back to you soon.",
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setFeedback({
+          type: "error",
+          message:
+            data.error || "Failed to send message. Please try again or email directly.",
+        });
+      }
+    } catch (err) {
+      setFeedback({
+        type: "error",
+        message: "An unexpected network error occurred. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -138,7 +180,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Right Column: Premium Dark Contact Form */}
+          {/* Right Column: Premium Dark Contact Form with Gmail SMTP */}
           <div className="lg:col-span-7">
             <form
               onSubmit={handleSubmit}
@@ -149,9 +191,27 @@ export default function ContactPage() {
                   Send a Direct Message
                 </h3>
                 <span className="text-xs font-mono text-[#FF4D1F] font-bold">
-                  FAST RESPONSE
+                  DIRECT TO INBOX
                 </span>
               </div>
+
+              {/* Status feedback Banner */}
+              {feedback && (
+                <div
+                  className={`p-4 rounded-xl flex items-start gap-3 border text-xs sm:text-sm font-sans ${
+                    feedback.type === "success"
+                      ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
+                      : "bg-rose-500/10 border-rose-500/30 text-rose-400"
+                  }`}
+                >
+                  {feedback.type === "success" ? (
+                    <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+                  ) : (
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  )}
+                  <span>{feedback.message}</span>
+                </div>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Name Field */}
@@ -163,9 +223,10 @@ export default function ContactPage() {
                     type="text"
                     required
                     placeholder="Jane Doe"
+                    disabled={isSubmitting}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#FF4D1F] focus:outline-none text-white text-sm transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#FF4D1F] focus:outline-none text-white text-sm transition-all disabled:opacity-50"
                   />
                 </div>
 
@@ -178,9 +239,10 @@ export default function ContactPage() {
                     type="email"
                     required
                     placeholder="jane@example.com"
+                    disabled={isSubmitting}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#FF4D1F] focus:outline-none text-white text-sm transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#FF4D1F] focus:outline-none text-white text-sm transition-all disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -194,9 +256,10 @@ export default function ContactPage() {
                   type="text"
                   required
                   placeholder="Backend Project / Internship Inquiry"
+                  disabled={isSubmitting}
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#FF4D1F] focus:outline-none text-white text-sm transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#FF4D1F] focus:outline-none text-white text-sm transition-all disabled:opacity-50"
                 />
               </div>
 
@@ -209,26 +272,32 @@ export default function ContactPage() {
                   required
                   rows={5}
                   placeholder="Tell me about your project, goals, or inquiry..."
+                  disabled={isSubmitting}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#FF4D1F] focus:outline-none text-white text-sm transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 focus:border-[#FF4D1F] focus:outline-none text-white text-sm transition-all resize-none disabled:opacity-50"
                 />
               </div>
 
               {/* Submit CTA */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+              <div className="flex items-center justify-between gap-4 pt-2">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#FF4D1F] hover:bg-[#E63E12] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-105"
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#FF4D1F] hover:bg-[#E63E12] disabled:bg-[#FF4D1F]/50 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed"
                 >
-                  <span>SEND MESSAGE</span>
-                  <Send className="w-3.5 h-3.5" />
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>SENDING...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>SEND MESSAGE</span>
+                      <Send className="w-3.5 h-3.5" />
+                    </>
+                  )}
                 </button>
-                {status && (
-                  <span className="text-xs font-mono text-[#FF4D1F] animate-pulse">
-                    {status}
-                  </span>
-                )}
               </div>
             </form>
           </div>
