@@ -1,63 +1,40 @@
 "use client";
 
-import React, { useEffect, useCallback } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import React from "react";
 import GlassDock, { DockItem } from "@/components/GlassDock";
-import { Music } from "lucide-react";
+import { Home, User, Cpu, Layers, Music, Mail } from "lucide-react";
 
 export default function NavigationDock() {
-  const pathname = usePathname();
-  const router = useRouter();
-
-  // Instant global prefetching
-  useEffect(() => {
-    ["/", "/about", "/skills", "/projects", "/contact", "/music"].forEach((path) => {
-      router.prefetch(path);
-    });
-  }, [router]);
-
-  const handleNavigate = useCallback(
-    (path: string) => {
-      if (pathname !== path) {
-        if (typeof window !== "undefined") {
-          window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
-        }
-        router.push(path);
-      }
-    },
-    [pathname, router]
-  );
-
   const dockItems: DockItem[] = [
     {
       title: "Home",
-      icon: () => null,
-      onClick: () => handleNavigate("/"),
+      href: "/",
+      icon: Home,
     },
     {
       title: "About",
-      icon: () => null,
-      onClick: () => handleNavigate("/about"),
+      href: "/about",
+      icon: User,
     },
     {
       title: "Skills",
-      icon: () => null,
-      onClick: () => handleNavigate("/skills"),
+      href: "/skills",
+      icon: Cpu,
     },
     {
       title: "Projects",
-      icon: () => null,
-      onClick: () => handleNavigate("/projects"),
+      href: "/projects",
+      icon: Layers,
     },
     {
       title: "Music",
+      href: "/music",
       icon: Music,
-      onClick: () => handleNavigate("/music"),
     },
     {
       title: "Contact",
-      icon: () => null,
-      onClick: () => handleNavigate("/contact"),
+      href: "/contact",
+      icon: Mail,
     },
   ];
 
