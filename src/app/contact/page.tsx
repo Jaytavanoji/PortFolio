@@ -158,7 +158,7 @@ export default function ContactPage() {
                 </span>
                 <div className="flex items-center gap-3">
                   <a
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/jay-tavanoji-4606b93b9"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/60 border border-white/10 hover:border-[#FF4D1F]/50 text-white text-xs font-mono transition-all"
@@ -167,7 +167,7 @@ export default function ContactPage() {
                     <span>LinkedIn</span>
                   </a>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/Jaytavanoji"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/60 border border-white/10 hover:border-[#FF4D1F]/50 text-white text-xs font-mono transition-all"
