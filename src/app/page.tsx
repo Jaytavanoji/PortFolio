@@ -12,8 +12,8 @@ const START_FRAME = 7;
 const END_FRAME = 84;
 const TOTAL_FRAMES = END_FRAME - START_FRAME + 1; // 78 frames
 
-// Configurable smoothing factor (0.08 - 0.18 range): 0.12 provides silky Apple-grade responsiveness
-const LERP_FACTOR = 0.12;
+// Configurable smoothing factor (0.075 provides silky, buttery Apple-grade momentum decay)
+const LERP_FACTOR = 0.075;
 
 // Path mapping: Zero-overhead WebP frame assets
 const getFrameSrc = (frameNum: number): string => {
@@ -79,24 +79,28 @@ export default function IsolatedCinematicHeroPage() {
   }, []);
 
   // ============================================================================
-  // 4 & 7. HARDWARE CANVAS RENDERING (Draws only decoded bitmaps, zero GC)
+  // 4 & 7. HARDWARE CANVAS RENDERING (Draws decoded bitmaps with sub-frame blending)
   // ============================================================================
   const renderCanvasFrame = useCallback(
-    (frameNum: number) => {
+    (frameFloat: number) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
       const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
       if (!ctx) return;
 
-      const clampedFrame = Math.max(START_FRAME, Math.min(END_FRAME, frameNum));
-      const drawable = getDecodedFrame(clampedFrame);
-      if (!drawable) return;
+      const clampedFloat = Math.max(START_FRAME, Math.min(END_FRAME, frameFloat));
+      const baseFrame = Math.floor(clampedFloat);
+      const nextFrame = Math.min(END_FRAME, baseFrame + 1);
+      const fraction = clampedFloat - baseFrame;
+
+      const drawableBase = getDecodedFrame(baseFrame);
+      if (!drawableBase) return;
 
       const cw = canvas.width;
       const ch = canvas.height;
-      const iw = drawable.width;
-      const ih = drawable.height;
+      const iw = drawableBase.width;
+      const ih = drawableBase.height;
 
       if (!iw || !ih) return;
 
@@ -109,15 +113,28 @@ export default function IsolatedCinematicHeroPage() {
 
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = "high";
-      ctx.drawImage(drawable, 0, 0, iw, ih, offsetX, offsetY, drawW, drawH);
 
-      lastRenderedFrameRef.current = clampedFrame;
+      // Base frame draw
+      ctx.globalAlpha = 1.0;
+      ctx.drawImage(drawableBase, 0, 0, iw, ih, offsetX, offsetY, drawW, drawH);
+
+      // Sub-frame smooth alpha cross-blend for silky continuous video feel
+      if (fraction > 0.03 && nextFrame !== baseFrame) {
+        const drawableNext = getDecodedFrame(nextFrame);
+        if (drawableNext) {
+          ctx.globalAlpha = fraction;
+          ctx.drawImage(drawableNext, 0, 0, iw, ih, offsetX, offsetY, drawW, drawH);
+          ctx.globalAlpha = 1.0;
+        }
+      }
+
+      lastRenderedFrameRef.current = Math.round(clampedFloat);
     },
     [getDecodedFrame]
   );
 
   // ============================================================================
-  // 10 & 12. VIEWPORT & CANVAS RESOLUTION SYNC
+  // 10 & 12. VIEWPORT & CANVAS RESOLUTION SYNC (Capped DPR for locked 60fps)
   // ============================================================================
   const updateLayoutMetrics = useCallback(() => {
     const container = containerRef.current;
@@ -126,7 +143,8 @@ export default function IsolatedCinematicHeroPage() {
 
     const displayW = window.innerWidth;
     const displayH = window.innerHeight;
-    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    // Cap DPR at 1.5 to guarantee buttery 60fps rendering even on 4K Retina screens
+    const dpr = Math.min(1.5, Math.max(1, window.devicePixelRatio || 1));
 
     const rect = container.getBoundingClientRect();
     const totalScrollable = Math.max(1, container.offsetHeight - displayH);
@@ -266,15 +284,9 @@ export default function IsolatedCinematicHeroPage() {
         currentFrameRef.current = target;
       }
 
-      // 9. Select actual frame to render only by rounding currentFrame
-      const renderFrame = Math.max(
-        START_FRAME,
-        Math.min(END_FRAME, Math.round(currentFrameRef.current))
-      );
-
-      // 7. Render ONLY when the integer frame changes (0 unnecessary draw calls)
-      if (renderFrame !== lastRenderedFrameRef.current) {
-        renderCanvasFrame(renderFrame);
+      // Continuous sub-frame rendering for buttery fluid video motion
+      if (Math.abs(diff) > 0.0001 || Math.abs(currentFrameRef.current - lastRenderedFrameRef.current) > 0.01) {
+        renderCanvasFrame(currentFrameRef.current);
       }
 
       animationFrameIdRef.current = requestAnimationFrame(renderLoop);
