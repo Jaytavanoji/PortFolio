@@ -8,59 +8,10 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import { MUSIC_TRACKS, Track } from "@/data/musicTracks";
 
-export interface Track {
-  id: number;
-  title: string;
-  artist: string;
-  genre: string;
-  duration: string;
-  src: string;
-  artwork: string;
-}
-
-export const PLAYLIST: Track[] = [
-  {
-    id: 1,
-    title: "COOOK PARDON",
-    artist: "Jay Tavanoji",
-    genre: "Original Beat · Flow State",
-    duration: "2:51",
-    src: "/music/coook-pardon.mp3",
-    artwork:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop",
-  },
-  {
-    id: 2,
-    title: "All The Stars",
-    artist: "Kendrick Lamar, SZA",
-    genre: "Hip-Hop / Soundtrack · High Energy",
-    duration: "3:52",
-    src: "/music/all-the-stars.mp3",
-    artwork:
-      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=400&auto=format&fit=crop",
-  },
-  {
-    id: 3,
-    title: "Bairi",
-    artist: "Acoustic Indie",
-    genre: "Indie Chill · Deep Focus",
-    duration: "4:02",
-    src: "/music/bairi.mp3",
-    artwork:
-      "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=400&auto=format&fit=crop",
-  },
-  {
-    id: 4,
-    title: "Limbo",
-    artist: "Keshi",
-    genre: "R&B / Lo-Fi · Night Shift",
-    duration: "2:52",
-    src: "/music/limbo.mp3",
-    artwork:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=400&auto=format&fit=crop",
-  },
-];
+export type { Track };
+export const PLAYLIST: Track[] = MUSIC_TRACKS;
 
 interface AudioContextType {
   tracks: Track[];

@@ -33,37 +33,41 @@ export default function MusicMiniPlayer() {
             src={currentTrack.artwork}
             alt={currentTrack.title}
             className={`w-full h-full object-cover transition-all duration-500 ${
-              isPlaying ? "scale-105" : "grayscale opacity-80"
+              isPlaying ? "scale-105" : ""
             }`}
           />
 
-          {/* Dark Overlay on Hover */}
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
-            {/* Center Play / Pause Icon */}
-            <div className="p-2 rounded-full bg-white/20 hover:bg-white text-white hover:text-black backdrop-blur-md shadow-lg transform transition-all group-hover:scale-105">
-              {isPlaying ? (
-                <Pause className="w-3.5 h-3.5 fill-current" />
-              ) : (
-                <Play className="w-3.5 h-3.5 fill-current translate-x-0.5" />
-              )}
-            </div>
-          </div>
+          {/* Dark Overlay & Play/Pause Icon — Revealed Only When Expanded / Hovered */}
+          {isHovered && (
+            <>
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
+                {/* Center Play / Pause Icon */}
+                <div className="p-2 rounded-full bg-white/20 hover:bg-white text-white hover:text-black backdrop-blur-md shadow-lg transform transition-all group-hover:scale-105">
+                  {isPlaying ? (
+                    <Pause className="w-3.5 h-3.5 fill-current" />
+                  ) : (
+                    <Play className="w-3.5 h-3.5 fill-current translate-x-0.5" />
+                  )}
+                </div>
+              </div>
 
-          {/* Live Pulsing Equalizer Bars */}
-          <div className="absolute top-1.5 right-1.5 flex items-end gap-0.5 h-3 bg-black/70 px-1 py-0.5 rounded backdrop-blur-md pointer-events-none">
-            {[0.8, 1, 0.5, 0.9].map((scale, i) => (
-              <span
-                key={i}
-                className="w-0.5 bg-[#FF4D1F] rounded-full transition-all duration-300"
-                style={{
-                  height: isPlaying ? `${scale * 100}%` : "30%",
-                  animation: isPlaying
-                    ? `vengeance-mini-eq ${0.6 + i * 0.15}s ease-in-out infinite alternate`
-                    : "none",
-                }}
-              />
-            ))}
-          </div>
+              {/* Pulsing Equalizer Bars */}
+              <div className="absolute top-1.5 right-1.5 flex items-end gap-0.5 h-3 bg-black/70 px-1 py-0.5 rounded backdrop-blur-md pointer-events-none">
+                {[0.8, 1, 0.5, 0.9].map((scale, i) => (
+                  <span
+                    key={i}
+                    className="w-0.5 bg-[#FF4D1F] rounded-full transition-all duration-300"
+                    style={{
+                      height: isPlaying ? `${scale * 100}%` : "30%",
+                      animation: isPlaying
+                        ? `vengeance-mini-eq ${0.6 + i * 0.15}s ease-in-out infinite alternate`
+                        : "none",
+                    }}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Expanded Info & Controls (Revealed on Hover) */}

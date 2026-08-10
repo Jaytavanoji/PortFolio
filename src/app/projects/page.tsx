@@ -1,210 +1,413 @@
 "use client";
 
-import React from "react";
-import { ArrowUpRight, Code, Layers, Sparkles, Database, CheckCircle2, ArrowRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Code,
+  Layers,
+  Database,
+  Cpu,
+  CheckCircle2,
+  Workflow,
+  Search,
+  Radio,
+  Clock,
+  ArrowRight,
+  ShieldAlert,
+  Sliders,
+  ExternalLink,
+  Github,
+} from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { GlareCard } from "@/components/ui/glare-card";
+import { ImageText } from "@/components/ui/image-text";
+import { FeatCard } from "@/components/ui/feat-card";
+import CinematicBackground from "@/components/ui/CinematicBackground";
 
-interface Project {
-  number: string;
-  title: string;
-  category: string;
-  description: string;
-  tech: string[];
-  highlights: string[];
-  githubUrl?: string;
-  status: string;
-}
 
-export default function ProjectsPage() {
-  const projects: Project[] = [
-    {
-      number: "01",
-      title: "LifeDashboard 2.0",
-      category: "PERSONAL LIFE OS · BACKEND / AI",
-      description:
-        "A modular, multi-service personal life operating system unifying daily productivity, personal finances, wellness habits, and screen-time intelligence into a synchronized backend dashboard.",
-      tech: ["React", "FastAPI", "Python", "PostgreSQL", "Groq API", "REST APIs", "Tailwind CSS"],
-      highlights: [
-        "Modular microservice architecture built with high-speed FastAPI endpoints",
-        "Automated intelligence summaries powered by Groq LLM API",
-        "Relational database storage with schema migrations and analytics queries",
-      ],
-      status: "Active Development",
-    },
-    {
-      number: "02",
-      title: "RegiNova",
-      category: "AI · DOCUMENT INTELLIGENCE & SEARCH",
-      description:
-        "An AI-driven government and corporate document intelligence platform engineered for semantic vector search, intelligent question-answering over dense legal texts, and secure document analytics.",
-      tech: ["React", "Vite", "FastAPI", "PostgreSQL", "JWT Auth", "Groq API", "RAG", "FAISS", "Sentence Transformers"],
-      highlights: [
-        "Retrieval-Augmented Generation (RAG) pipeline using Sentence Transformers & FAISS",
-        "Stateless JWT authentication with role-guarded API endpoints",
-        "Sub-second vector similarity search across large text repositories",
-      ],
-      status: "Featured Project",
-    },
-    {
-      number: "03",
-      title: "ANPR & Smart Document Intelligence",
-      category: "COMPUTER VISION · AUTOMATION PIPELINE",
-      description:
-        "An automated computer vision workflow designed for real-time Automated Number Plate Recognition (ANPR) and intelligent document processing with text bounding-box extraction.",
-      tech: ["Python", "Computer Vision", "OpenCV", "AI Models", "Automation Scripts"],
-      highlights: [
-        "Morphological image pre-processing, contour detection, and plate localization",
-        "OCR extraction pipeline with noise filtering and character segmentation",
-        "Lightweight automated CLI pipeline for batch document extraction",
-      ],
-      status: "Completed Prototype",
-    },
-    {
-      number: "04",
-      title: "ML Test Case Failure Prediction",
-      category: "MACHINE LEARNING · SOFTWARE QUALITY ENGINEERING",
-      description:
-        "A predictive machine learning system developed to analyze code churn, historical test executions, and module dependencies to predict potential software test-case failures prior to deployment.",
-      tech: ["Python", "Scikit-Learn", "Pandas", "NumPy", "Data Preprocessing"],
-      highlights: [
-        "Feature engineering on historical commit logs and automated test run metrics",
-        "Binary classification model predicting high-risk regression failure paths",
-        "Optimization of CI/CD testing duration by prioritizing high-risk test cases",
-      ],
-      status: "Research & Prototype",
-    },
-  ];
+/* ──────────────────────────────────────────────────────────
+   Project 1: LifeDashboard 2.0 (Microservices Metrics)
+   ────────────────────────────────────────────────────────── */
+function LifeDashboardWidget() {
+  const [finances, setFinances] = useState(1420);
+  const [tasksCompleted, setTasksCompleted] = useState(8);
+  const [screenTime, setScreenTime] = useState(2.4);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFinances((prev) => prev + Math.floor(Math.random() * 5) - 2);
+      setScreenTime((prev) => Math.max(1, +(prev + (Math.random() * 0.2 - 0.1)).toFixed(1)));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="relative w-full min-h-screen bg-[#050608] text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-8 md:px-14 flex flex-col items-center overflow-hidden">
-      {/* ── ATMOSPHERIC HERO-FRAME MATCHED AMBIENT GLOWS ── */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_-10%,_rgba(28,34,56,0.5),_transparent_65%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_30%,_rgba(255,77,31,0.06),_transparent_45%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#030305]/70 to-[#020203]"
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 w-full max-w-6xl flex flex-col gap-12 sm:gap-16">
-        {/* ── TOP EDITORIAL HEADER ── */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
-          <div className="flex flex-col items-start gap-1">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase text-white">
-              PROJECTS <span className="text-[#A1A1AA] font-light">SYSTEMS & AI</span>
-            </h1>
-          </div>
-          <span className="text-xs font-mono tracking-widest uppercase text-[#8A8A8A]">
-            Backend · AI · Experiments
+    <div className="w-full h-full flex flex-col justify-between p-3 select-none">
+      <div className="grid grid-cols-3 gap-2">
+        <div className="bg-black/50 border border-white/5 rounded-xl p-2 flex flex-col justify-between">
+          <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase tracking-wider">
+            Habit Yield
           </span>
+          <span className="text-sm font-bold font-mono text-white mt-1">94%</span>
+        </div>
+        <div className="bg-black/50 border border-white/5 rounded-xl p-2 flex flex-col justify-between">
+          <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase tracking-wider">
+            API Latency
+          </span>
+          <span className="text-sm font-bold font-mono text-emerald-400 mt-1">14ms</span>
+        </div>
+        <div className="bg-black/50 border border-white/5 rounded-xl p-2 flex flex-col justify-between">
+          <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase tracking-wider">
+            Active Nodes
+          </span>
+          <span className="text-sm font-bold font-mono text-[#FF4D1F] mt-1">5 / 5</span>
+        </div>
+      </div>
+
+      <div className="flex-1 flex flex-col justify-center gap-1.5 mt-3">
+        <div className="flex items-center justify-between text-[9px] font-mono text-white/70">
+          <span>Groq Agent Pipeline</span>
+          <span className="text-emerald-400">Idle (Awaiting Task)</span>
+        </div>
+        <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden relative shadow-inner">
+          <div className="absolute left-0 top-0 bottom-0 rounded-full bg-[#FF4D1F] w-[88%]" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
+   Project 2: RegiNova AI (Interactive RAG Search)
+   ────────────────────────────────────────────────────────── */
+const MOCK_QUERIES = [
+  { term: "vector embeddings auth module", hits: 34, t: "0.2s" },
+  { term: "API rate limiting configuration", hits: 18, t: "1.1s" },
+  { term: "Redis cache invalidation patterns", hits: 56, t: "2.4s" },
+  { term: "Q3 roadmap — agent features", hits: 9, t: "0.8s" },
+];
+
+function RegiNovaWidget() {
+  const [activeQueryIdx, setActiveQueryIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveQueryIdx((prev) => (prev + 1) % MOCK_QUERIES.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, []);
+
+  const active = MOCK_QUERIES[activeQueryIdx];
+
+  return (
+    <div className="w-full h-full flex flex-col justify-between p-3 select-none">
+      <div className="flex items-center gap-2 bg-black/60 border border-white/5 rounded-xl px-2.5 py-1.5">
+        <Search className="w-3.5 h-3.5 text-[#FF4D1F]" />
+        <span className="text-[10px] font-mono text-white/80 truncate flex-1">{active.term}</span>
+      </div>
+
+      <div className="flex gap-2.5 mt-3 flex-1 items-end">
+        {[0, 1, 2, 3].map((offset) => {
+          const item =
+            MOCK_QUERIES[
+              (activeQueryIdx - offset + MOCK_QUERIES.length) % MOCK_QUERIES.length
+            ];
+          return (
+            <motion.div
+              key={item.term}
+              className="flex-1 rounded-lg border border-white/5 bg-black/30 p-1.5 flex flex-col justify-between min-h-[55px]"
+              animate={{
+                opacity: offset === 0 ? 1 : 0.4,
+                scale: offset === 0 ? 1 : 0.95,
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase">HITS</span>
+              <span className="text-xs font-bold font-mono text-white mt-0.5">{item.hits}</span>
+            </motion.div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
+   Project 3: ANPR Smart Doc (Computer Vision Pipeline Node)
+   ────────────────────────────────────────────────────────── */
+const CV_PIPELINE = [
+  { label: "Capture", status: "completed" },
+  { label: "Locate", status: "completed" },
+  { label: "Segment", status: "active" },
+  { label: "Inference", status: "planned" },
+];
+
+function CardCvPipeline() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % CV_PIPELINE.length);
+    }, 2200);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="w-full h-full relative overflow-hidden select-none bg-neutral-950/40 rounded-xl flex items-center justify-center p-2">
+      <svg className="absolute inset-0 w-full h-full" aria-hidden>
+        <defs>
+          <pattern id="proj-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="0.75" fill="#ffffff" fillOpacity="0.05" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#proj-dots)" />
+      </svg>
+
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 320 160"
+        preserveAspectRatio="xMidYMid meet"
+        aria-hidden
+      >
+        <path d="M 45 80 L 120 80" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+        <path d="M 120 80 L 195 80" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+        <path d="M 195 80 L 270 80" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+
+        {/* Highlighted Flow path */}
+        <motion.path
+          d="M 45 80 L 120 80"
+          fill="none"
+          stroke="#FF4D1F"
+          strokeWidth="1.5"
+          animate={{ pathLength: activeStep >= 1 ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+        />
+        <motion.path
+          d="M 120 80 L 195 80"
+          fill="none"
+          stroke="#FF4D1F"
+          strokeWidth="1.5"
+          animate={{ pathLength: activeStep >= 2 ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+        />
+        <motion.path
+          d="M 195 80 L 270 80"
+          fill="none"
+          stroke="#FF4D1F"
+          strokeWidth="1.5"
+          animate={{ pathLength: activeStep >= 3 ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+        />
+
+        {CV_PIPELINE.map((step, idx) => {
+          const isActive = idx === activeStep;
+          return (
+            <foreignObject
+              key={step.label}
+              x={idx * 75 + 45 - 24}
+              y={52}
+              width={48}
+              height={56}
+              className="overflow-visible"
+            >
+              <div className="w-full h-full flex flex-col items-center justify-center gap-1.5">
+                <div
+                  className={cn(
+                    "w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-500",
+                    isActive
+                      ? "bg-[#FF4D1F] border-[#FF4D1F] text-white shadow-[0_0_15px_rgba(255,77,31,0.4)]"
+                      : "bg-black/60 border-white/10 text-[#8A8A8A]"
+                  )}
+                >
+                  <span className="text-[9px] font-mono font-bold text-white">{idx + 1}</span>
+                </div>
+                <span className="text-[7px] font-mono tracking-wider font-bold text-white/50 uppercase">
+                  {step.label}
+                </span>
+              </div>
+            </foreignObject>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
+   Project 4: ML Failure Predictor (Sparkline graph style)
+   ────────────────────────────────────────────────────────── */
+function CardMlPredictor() {
+  const accuracyPoints = [15, 28, 48, 62, 78, 88, 92];
+  const lossPoints = [85, 72, 54, 38, 24, 14, 8];
+
+  return (
+    <div className="w-full h-full flex flex-col justify-between p-3 select-none">
+      <div className="flex gap-2">
+        <div className="flex-1 bg-black/50 border border-white/5 rounded-xl p-2.5 flex items-center justify-between">
+          <div className="flex flex-col">
+            <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase">Accuracy</span>
+            <span className="text-xs font-bold font-mono text-emerald-400 mt-0.5">92.4%</span>
+          </div>
+
+          <svg className="w-12 h-6 overflow-visible" viewBox="0 0 64 32">
+            <path
+              d={accuracyPoints
+                .map((val, idx) => `${idx === 0 ? "M" : "L"} ${idx * 10.6} ${32 - val / 3}`)
+                .join(" ")}
+              fill="none"
+              stroke="#10b981"
+              strokeWidth="1.5"
+            />
+          </svg>
         </div>
 
-        {/* ── SUBTITLE STATEMENT ── */}
-        <p className="max-w-3xl text-base sm:text-xl text-[#A1A1AA] font-light leading-relaxed">
-          Systems, applications, and experiments I’ve built while exploring backend engineering, AI/RAG architectures, and practical software development.
-        </p>
+        <div className="flex-1 bg-black/50 border border-white/5 rounded-xl p-2.5 flex items-center justify-between">
+          <div className="flex flex-col">
+            <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase">Loss</span>
+            <span className="text-xs font-bold font-mono text-rose-400 mt-0.5">0.082</span>
+          </div>
 
-        {/* ── EDITORIAL PROJECT CARDS ── */}
-        <div className="flex flex-col gap-10">
-          {projects.map((project) => (
-            <div
-              key={project.number}
-              className="p-6 sm:p-10 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-xl flex flex-col lg:flex-row justify-between gap-8 relative overflow-hidden group hover:border-[#FF4D1F]/40 transition-all shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
-            >
-              {/* Left Column: Project Overview */}
-              <div className="flex flex-col gap-4 flex-1">
-                {/* Number & Category */}
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-2xl sm:text-3xl font-black text-[#FF4D1F]">
-                    {project.number}
-                  </span>
-                  <div className="h-4 w-px bg-white/20" />
-                  <span className="font-mono text-xs font-bold tracking-widest text-[#8A8A8A] uppercase">
-                    {project.category}
-                  </span>
-                </div>
+          <svg className="w-12 h-6 overflow-visible" viewBox="0 0 64 32">
+            <path
+              d={lossPoints
+                .map((val, idx) => `${idx === 0 ? "M" : "L"} ${idx * 10.6} ${32 - val / 3}`)
+                .join(" ")}
+              fill="none"
+              stroke="#f43f5e"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </div>
+      </div>
 
-                {/* Title */}
-                <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white group-hover:text-white transition-colors">
-                  {project.title}
-                </h2>
+      <div className="flex items-center justify-between text-[8px] font-mono text-white/50 mt-4 border-t border-white/5 pt-2">
+        <span>Epoch: 150 / 150</span>
+        <span>Validation Split: 0.2</span>
+      </div>
+    </div>
+  );
+}
 
-                {/* Description */}
-                <p className="text-sm sm:text-base text-[#A1A1AA] font-light leading-relaxed max-w-2xl">
-                  {project.description}
-                </p>
+/* ──────────────────────────────────────────────────────────
+   MAIN PROJECTS PAGE BENTO GRID BUILDER
+   ────────────────────────────────────────────────────────── */
+export default function ProjectsPage() {
+  return (
+    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-8 md:px-14 flex flex-col items-center overflow-hidden">
+      <CinematicBackground />
 
-                {/* Highlights List */}
-                <div className="flex flex-col gap-2 pt-2">
-                  {project.highlights.map((highlight, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#F5F5F5]/90 font-light">
-                      <CheckCircle2 className="w-4 h-4 text-[#FF4D1F] shrink-0 mt-0.5" />
-                      <span>{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      <div className="relative z-10 w-full max-w-[1380px] flex flex-col gap-12 sm:gap-16">
+        {/* ── TOP EDITORIAL HEADER ── */}
+        <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6 shrink-0">
+          <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-3">
+            <ImageText
+              text="PROJECTS"
+              imageUrl="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1200&auto=format&fit=crop"
+              direction="diagonal"
+              className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tight uppercase drop-shadow-[0_10px_20px_rgba(255,255,255,0.12)]"
+            />
+            <span className="text-[#A1A1AA] font-light text-lg sm:text-2xl md:text-3xl tracking-tight uppercase pb-0.5 sm:pb-1">
+              SYSTEM BUILDS
+            </span>
+          </div>
+        </header>
 
-              {/* Right Column: Tech Stack & Actions */}
-              <div className="lg:w-80 flex flex-col justify-between gap-6 border-t lg:border-t-0 lg:border-l border-white/10 pt-6 lg:pt-0 lg:pl-8">
-                {/* Tech Pills */}
-                <div className="flex flex-col gap-2">
-                  <span className="font-mono text-[11px] font-bold text-[#8A8A8A] tracking-wider uppercase">
-                    TECH STACK
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-white text-xs font-mono font-medium hover:border-[#FF4D1F]/50 transition-colors"
-                      >
-                        {t}
-                      </span>
-                    ))}
+        {/* ── PROJECTS BENTO GRID ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+          {/* Project 1: LifeDashboard 2.0 */}
+          <FeatCard
+            title="LifeDashboard 2.0"
+            category="Personal Life OS · Backend / AI"
+            status="Active Development"
+            description="A modular, multi-service life operating system unifying habit metrics, wellness scores, and finances into a centralized FastAPI backend."
+            githubUrl="https://github.com/Jaytavanoji"
+          >
+            <LifeDashboardWidget />
+          </FeatCard>
+
+          {/* Project 2: RegiNova */}
+          <FeatCard
+            title="RegiNova"
+            category="AI · Document Search & RAG"
+            status="Featured Project"
+            description="An AI government/corporate document intel platform designed for semantic vector similarity queries and text chunk summaries."
+            githubUrl="https://github.com/Jaytavanoji"
+          >
+            <RegiNovaWidget />
+          </FeatCard>
+
+          {/* Project 3: ANPR Smart Doc */}
+          <FeatCard
+            title="Smart CV Document OCR"
+            category="Computer Vision · Pipeline Automation"
+            status="Completed Prototype"
+            description="Real-time automated computer vision workflow for contour detection, pre-processing, and Character OCR mapping."
+            githubUrl="https://github.com/Jaytavanoji"
+          >
+            <CardCvPipeline />
+          </FeatCard>
+
+          {/* Project 4: ML Failure Predictor */}
+          <FeatCard
+            title="ML Failure Predictor"
+            category="Machine Learning · QA Intelligence"
+            status="Research Project"
+            description="A software quality predictive classifier parsing historical code churn and regression test parameters to predict test fail pathways."
+            githubUrl="https://github.com/Jaytavanoji"
+          >
+            <CardMlPredictor />
+          </FeatCard>
+
+          {/* Project 5: PulseRoute API Gateway */}
+          <FeatCard
+            title="PulseRoute API Gateway"
+            category="Backend · Distributed Systems"
+            status="In Progress"
+            description="High-throughput async HTTP gateway with rate limiting, JWT auth middleware, circuit breaking, and request telemetry dashboard — built on FastAPI + Redis."
+            githubUrl="https://github.com/Jaytavanoji"
+          >
+            <div className="w-full h-full flex flex-col justify-between p-3.5 gap-2">
+              {[
+                { label: "RATE LIMITER", val: "1000 req/min", active: true },
+                { label: "CIRCUIT BREAKER", val: "CLOSED · OK", active: false },
+                { label: "JWT AUTH", val: "RS256 · HS512", active: true },
+                { label: "CACHE TTL", val: "60s · REDIS", active: false },
+              ].map((r) => (
+                <div key={r.label} className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-black/50 border border-white/5">
+                  <span className="text-[8px] font-mono text-[#8A8A8A] tracking-wider">{r.label}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${r.active ? "bg-emerald-400" : "bg-blue-400"}`} />
+                    <span className="text-[8px] font-mono text-white">{r.val}</span>
                   </div>
                 </div>
+              ))}
+            </div>
+          </FeatCard>
 
-                {/* Status & CTA */}
-                <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#FF4D1F] animate-pulse" />
-                    <span className="text-xs font-mono text-[#A1A1AA] font-medium">
-                      {project.status}
-                    </span>
-                  </div>
-                  <Link
-                    href="/contact"
-                    className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/[0.08] hover:bg-[#FF4D1F] text-white text-xs font-semibold uppercase tracking-wider transition-all"
-                  >
-                    <span>Discuss</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
+          {/* Project 6: SentinelShield Auth Proxy */}
+          <FeatCard
+            title="SentinelShield Auth Proxy"
+            category="Security · Zero-Trust Architecture"
+            status="Prototype"
+            description="A zero-trust JWT security proxy enforcing strict auth chains, request signing, IP reputation scoring, and automated threat quarantine."
+            githubUrl="https://github.com/Jaytavanoji"
+          >
+            <div className="w-full h-full flex flex-col justify-between p-3.5 gap-2">
+              <div className="grid grid-cols-2 gap-2 flex-1">
+                <div className="flex flex-col p-2.5 rounded-xl bg-black/50 border border-white/5">
+                  <span className="text-[7px] font-mono text-[#8A8A8A]">THREATS BLOCKED</span>
+                  <span className="text-xl font-mono font-bold text-[#FF4D1F] mt-0.5">1,842</span>
+                  <span className="text-[7px] font-mono text-[#8A8A8A]">LAST 24H</span>
+                </div>
+                <div className="flex flex-col p-2.5 rounded-xl bg-black/50 border border-white/5">
+                  <span className="text-[7px] font-mono text-[#8A8A8A]">AUTH PASS RATE</span>
+                  <span className="text-xl font-mono font-bold text-emerald-400 mt-0.5">99.7%</span>
+                  <span className="text-[7px] font-mono text-[#8A8A8A]">RS256 JWT</span>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* ── FOOTER CTA ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-8 rounded-3xl bg-gradient-to-r from-white/[0.04] to-black border border-white/10">
-          <div className="flex flex-col">
-            <h3 className="text-xl font-bold text-white">Have a project or collaboration in mind?</h3>
-            <p className="text-sm text-[#8A8A8A] mt-1 font-light">
-              Let’s build practical backend systems or AI-powered solutions together.
-            </p>
-          </div>
-          <Link
-            href="/contact"
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF4D1F] hover:bg-[#E63E12] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-105"
-          >
-            <span>Let&apos;s Connect</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          </FeatCard>
         </div>
       </div>
     </div>
