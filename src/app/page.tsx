@@ -6,19 +6,19 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 // ============================================================================
-// 1. EXACT FRAME CONFIGURATION (Frames 7 to 84 inclusive = 78 frames)
+// 1. EXACT FRAME CONFIGURATION (Frames 1 to 151 inclusive = 151 frames @ 50fps)
 // ============================================================================
-const START_FRAME = 7;
-const END_FRAME = 84;
-const TOTAL_FRAMES = END_FRAME - START_FRAME + 1; // 78 frames
+const START_FRAME = 1;
+const END_FRAME = 151;
+const TOTAL_FRAMES = END_FRAME - START_FRAME + 1; // 151 frames
 
-// Configurable smoothing factor (0.075 provides silky, buttery Apple-grade momentum decay)
-const LERP_FACTOR = 0.075;
+// Configurable smoothing factor (0.08 provides silky, 50fps buttery Apple-grade momentum decay)
+const LERP_FACTOR = 0.08;
 
 // Path mapping: Zero-overhead WebP frame assets
 const getFrameSrc = (frameNum: number): string => {
-  const padded = String(frameNum).padStart(3, "0");
-  return `/frames/ezgif-frame-${padded}.webp`;
+  const padded = String(frameNum).padStart(6, "0");
+  return `/webp/frame_${padded}.webp`;
 };
 
 type DecodedDrawable = ImageBitmap | HTMLImageElement;
@@ -325,7 +325,7 @@ export default function IsolatedCinematicHeroPage() {
       <main
         ref={containerRef}
         className="relative w-full bg-[#050505]"
-        style={{ height: "650vh" }} // Calibrated travel distance for responsive, buttery Apple-grade scrub
+        style={{ height: "1000vh" }} // Calibrated travel distance for 151 frames @ 50fps smooth scrub
       >
         {/* Sticky Fullscreen 100vw x 100svh Canvas Stage */}
         <div className="sticky top-0 left-0 w-full h-[100svh] overflow-hidden bg-black flex flex-col justify-between">
@@ -358,22 +358,22 @@ export default function IsolatedCinematicHeroPage() {
           {/* ── HERO MIDDLE LAYER: Left Title + Right "Great Software Should Feel Invisible" ── */}
           <div className="relative z-20 w-full px-6 sm:px-10 md:px-14 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 pb-24 sm:pb-28">
             {/* Left Column: Eyebrow + Liquid Blob Text Reveal Headline */}
-            <div className="flex flex-col items-start max-w-2xl lg:max-w-3xl">
-              <span className="text-xs sm:text-sm md:text-base font-bold tracking-[0.2em] text-[#FF4D1F] uppercase mb-2">
+            <div className="flex flex-col items-start max-w-2xl lg:max-w-4xl z-20">
+              <span className="text-sm sm:text-base md:text-lg font-bold tracking-[0.25em] text-[#FF4D1F] uppercase mb-2">
                 Hey, I&apos;m
               </span>
               <div className="w-full">
                 <TextRevealBlur
                   prefix="BUILDING "
-                  texts={["BACKENDS.", "AI SYSTEMS.", "FAST APIS.", "SOLUTIONS."]}
+                  texts={["SOLUTIONS.", "BACKENDS.", "AI SYSTEMS.", "FAST APIS."]}
                   revealColor="#FF4D1F"
                   wipeColor="#FFFFFF"
-                  blobSize={12}
+                  blobSize={14}
                   font={{
-                    fontSize: "clamp(2.4rem, 6.2vw, 5.5rem)",
+                    fontSize: "clamp(3.2rem, 7.5vw, 6.8rem)",
                     fontWeight: 900,
-                    lineHeight: "0.95",
-                    letterSpacing: "-0.03em",
+                    lineHeight: "0.92",
+                    letterSpacing: "-0.035em",
                     fontFamily: "var(--font-instrument-sans), var(--font-inter), sans-serif",
                     textAlign: "left",
                   }}
@@ -386,7 +386,7 @@ export default function IsolatedCinematicHeroPage() {
                   }}
                 />
               </div>
-              <p className="mt-4 text-xs sm:text-sm md:text-base lg:text-lg text-[#A1A1AA] font-medium tracking-wide drop-shadow-md">
+              <p className="mt-4 text-sm sm:text-base md:text-lg lg:text-xl text-[#A1A1AA] font-semibold tracking-wide drop-shadow-md">
                 Software Developer · Backend Engineer · AI Explorer
               </p>
             </div>
