@@ -56,7 +56,7 @@ export default function MusicMiniPlayer() {
                 {[0.8, 1, 0.5, 0.9].map((scale, i) => (
                   <span
                     key={i}
-                    className="w-0.5 bg-[#FF4D1F] rounded-full transition-all duration-300"
+                    className="w-0.5 bg-[#6E1A2B] rounded-full transition-all duration-300"
                     style={{
                       height: isPlaying ? `${scale * 100}%` : "30%",
                       animation: isPlaying

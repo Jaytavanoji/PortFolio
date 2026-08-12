@@ -59,6 +59,20 @@ export default function IsolatedCinematicHeroPage() {
     dpr: 1,
   });
 
+  // ============================================================================
+  // LOW-END DEVICE & HARDWARE CONCURRENCY DETECTION
+  // ============================================================================
+  const isLowEndDevice = useCallback((): boolean => {
+    if (typeof window === "undefined") return false;
+    const cores = navigator.hardwareConcurrency || 4;
+    const memory = (navigator as any).deviceMemory || 4;
+    return cores <= 4 || memory <= 4;
+  }, []);
+
+  // Track if RAF loop is active or sleeping
+  const isLoopRunningRef = useRef<boolean>(false);
+  const needsResizeRedrawRef = useRef<boolean>(false);
+
   // Resolve requested frame or nearest available decoded frame from in-memory cache
   const getDecodedFrame = useCallback((frameNum: number): DecodedDrawable | null => {
     const direct = frameCacheRef.current.get(frameNum);
@@ -79,14 +93,21 @@ export default function IsolatedCinematicHeroPage() {
   }, []);
 
   // ============================================================================
-  // 4 & 7. HARDWARE CANVAS RENDERING (Draws decoded bitmaps with sub-frame blending)
+  // 4 & 7. HARDWARE CANVAS RENDERING (Zero redundant redraws, adaptive blending)
   // ============================================================================
   const renderCanvasFrame = useCallback(
     (frameFloat: number) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+      const roundedFrame = Math.round(frameFloat);
+      // Redundant draw guard: Skip if exact frame was already rendered and no resize occurred
+      if (roundedFrame === lastRenderedFrameRef.current && !needsResizeRedrawRef.current) {
+        return;
+      }
+      needsResizeRedrawRef.current = false;
+
+      const ctx = canvas.getContext("2d", { alpha: false });
       if (!ctx) return;
 
       const clampedFloat = Math.max(START_FRAME, Math.min(END_FRAME, frameFloat));
@@ -111,15 +132,15 @@ export default function IsolatedCinematicHeroPage() {
       const offsetX = Math.floor((cw - drawW) / 2);
       const offsetY = Math.floor((ch - drawH) / 2);
 
+      const lowEnd = isLowEndDevice();
       ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = "high";
+      ctx.imageSmoothingQuality = lowEnd ? "low" : "medium";
 
-      // Base frame draw
-      ctx.globalAlpha = 1.0;
+      // Base frame draw (Primary GPU rasterization)
       ctx.drawImage(drawableBase, 0, 0, iw, ih, offsetX, offsetY, drawW, drawH);
 
-      // Sub-frame smooth alpha cross-blend for silky continuous video feel
-      if (fraction > 0.03 && nextFrame !== baseFrame) {
+      // Sub-frame cross-blend only on non-constrained GPUs to eliminate duplicate drawImage work on low-end hardware
+      if (!lowEnd && fraction > 0.2 && fraction < 0.8 && nextFrame !== baseFrame) {
         const drawableNext = getDecodedFrame(nextFrame);
         if (drawableNext) {
           ctx.globalAlpha = fraction;
@@ -128,13 +149,13 @@ export default function IsolatedCinematicHeroPage() {
         }
       }
 
-      lastRenderedFrameRef.current = Math.round(clampedFloat);
+      lastRenderedFrameRef.current = roundedFrame;
     },
-    [getDecodedFrame]
+    [getDecodedFrame, isLowEndDevice]
   );
 
   // ============================================================================
-  // 10 & 12. VIEWPORT & CANVAS RESOLUTION SYNC (Capped DPR for locked 60fps)
+  // 10 & 12. VIEWPORT & CANVAS RESOLUTION SYNC (Adaptive DPR cap for zero CPU choke)
   // ============================================================================
   const updateLayoutMetrics = useCallback(() => {
     const container = containerRef.current;
@@ -143,8 +164,10 @@ export default function IsolatedCinematicHeroPage() {
 
     const displayW = window.innerWidth;
     const displayH = window.innerHeight;
-    // Cap DPR at 1.5 to guarantee buttery 60fps rendering even on 4K Retina screens
-    const dpr = Math.min(1.5, Math.max(1, window.devicePixelRatio || 1));
+    
+    // Adaptive DPR cap: 1.0 for low-end / quad-core CPU systems, max 1.25 for high-end GPUs
+    const maxDpr = isLowEndDevice() ? 1.0 : 1.25;
+    const dpr = Math.min(maxDpr, Math.max(1, window.devicePixelRatio || 1));
 
     const rect = container.getBoundingClientRect();
     const totalScrollable = Math.max(1, container.offsetHeight - displayH);
@@ -166,6 +189,7 @@ export default function IsolatedCinematicHeroPage() {
       canvas.height = physicalH;
       canvas.style.width = `${displayW}px`;
       canvas.style.height = `${displayH}px`;
+      needsResizeRedrawRef.current = true;
 
       const activeFrame =
         lastRenderedFrameRef.current >= START_FRAME
@@ -173,16 +197,16 @@ export default function IsolatedCinematicHeroPage() {
           : START_FRAME;
       renderCanvasFrame(activeFrame);
     }
-  }, [renderCanvasFrame]);
+  }, [isLowEndDevice, renderCanvasFrame]);
 
   // ============================================================================
-  // 5 & 6. ASYNC PRELOADER & IMAGEBITMAP DECODER (Frames 7 to 84)
+  // 5 & 6. SMART ASYNC PRELOADER & IMAGEBITMAP DECODER (Controlled Concurrency)
   // ============================================================================
   useEffect(() => {
     let isCancelled = false;
 
-    // Helper: decode image via createImageBitmap with HTMLImageElement fallback
     const decodeFrame = async (frameNum: number): Promise<void> => {
+      if (frameCacheRef.current.has(frameNum)) return;
       try {
         const src = getFrameSrc(frameNum);
         if (typeof window !== "undefined" && "createImageBitmap" in window && typeof fetch !== "undefined") {
@@ -202,13 +226,11 @@ export default function IsolatedCinematicHeroPage() {
           isFrameDecodedRef.current.add(frameNum);
         }
 
-        // If this decoded frame is currently targeted and not yet rendered, render immediately
         const currentTarget = Math.round(currentFrameRef.current);
-        if (currentTarget === frameNum && lastRenderedFrameRef.current !== frameNum) {
+        if (currentTarget === frameNum) {
           renderCanvasFrame(frameNum);
         }
       } catch {
-        // Fallback for decode error: standard Image load
         const fallbackImg = new Image();
         fallbackImg.src = getFrameSrc(frameNum);
         fallbackImg.onload = () => {
@@ -223,7 +245,7 @@ export default function IsolatedCinematicHeroPage() {
       }
     };
 
-    // 1. Instantly decode Frame 7 for First Contentful Paint
+    // 1. Instantly decode Frame 1 for immediate First Contentful Paint
     decodeFrame(START_FRAME).then(() => {
       if (!isCancelled) {
         updateLayoutMetrics();
@@ -231,8 +253,8 @@ export default function IsolatedCinematicHeroPage() {
       }
     });
 
-    // 2. Concurrently preload all remaining frames (8 to 84)
-    const CONCURRENCY = 12;
+    // 2. Controlled queue concurrency: 3 workers for low-end devices, 6 workers for high-end
+    const CONCURRENCY = isLowEndDevice() ? 3 : 6;
     let nextFrame = START_FRAME + 1;
     let activeWorkers = 0;
 
@@ -253,10 +275,37 @@ export default function IsolatedCinematicHeroPage() {
     return () => {
       isCancelled = true;
     };
-  }, [renderCanvasFrame, updateLayoutMetrics]);
+  }, [isLowEndDevice, renderCanvasFrame, updateLayoutMetrics]);
 
   // ============================================================================
-  // 3 & 9. HIGH-PERFORMANCE SCROLL LISTENER (Updates ONLY targetFrameRef)
+  // ON-DEMAND RAF ANIMATION LOOP (Sleeps when settled, 0% idle CPU)
+  // ============================================================================
+  const startAnimationLoop = useCallback(() => {
+    if (isLoopRunningRef.current) return;
+    isLoopRunningRef.current = true;
+
+    const loop = () => {
+      const target = targetFrameRef.current;
+      const current = currentFrameRef.current;
+      const diff = target - current;
+
+      if (Math.abs(diff) > 0.0005) {
+        currentFrameRef.current += diff * LERP_FACTOR;
+        renderCanvasFrame(currentFrameRef.current);
+        animationFrameIdRef.current = requestAnimationFrame(loop);
+      } else {
+        currentFrameRef.current = target;
+        renderCanvasFrame(currentFrameRef.current);
+        isLoopRunningRef.current = false;
+        animationFrameIdRef.current = null;
+      }
+    };
+
+    animationFrameIdRef.current = requestAnimationFrame(loop);
+  }, [renderCanvasFrame]);
+
+  // ============================================================================
+  // 3 & 9. HIGH-PERFORMANCE SCROLL LISTENER (Updates targetFrameRef & wakes RAF)
   // ============================================================================
   const handleScroll = useCallback(() => {
     const { totalScrollable, containerTop } = layoutMetricsRef.current;
@@ -264,42 +313,10 @@ export default function IsolatedCinematicHeroPage() {
     const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
 
     targetProgressRef.current = progress;
-    // Map progress 0.0 -> 7, 1.0 -> 84 as float
     targetFrameRef.current = START_FRAME + progress * (END_FRAME - START_FRAME);
-  }, []);
 
-  // ============================================================================
-  // 2, 3, 7 & 8. SINGLE REQUESTANIMATIONFRAME SMOOTH INTERPOLATION LOOP
-  // ============================================================================
-  useEffect(() => {
-    const renderLoop = () => {
-      const target = targetFrameRef.current;
-      const current = currentFrameRef.current;
-      const diff = target - current;
-
-      // Smoothly approach targetFrame without noticeable input lag
-      if (Math.abs(diff) > 0.0001) {
-        currentFrameRef.current += diff * LERP_FACTOR;
-      } else {
-        currentFrameRef.current = target;
-      }
-
-      // Continuous sub-frame rendering for buttery fluid video motion
-      if (Math.abs(diff) > 0.0001 || Math.abs(currentFrameRef.current - lastRenderedFrameRef.current) > 0.01) {
-        renderCanvasFrame(currentFrameRef.current);
-      }
-
-      animationFrameIdRef.current = requestAnimationFrame(renderLoop);
-    };
-
-    animationFrameIdRef.current = requestAnimationFrame(renderLoop);
-
-    return () => {
-      if (animationFrameIdRef.current) {
-        cancelAnimationFrame(animationFrameIdRef.current);
-      }
-    };
-  }, [renderCanvasFrame]);
+    startAnimationLoop();
+  }, [startAnimationLoop]);
 
   // ============================================================================
   // EVENT LISTENERS (Resize & Passive Scroll)

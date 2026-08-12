@@ -53,7 +53,7 @@ function CardRagPipeline() {
 
   const getPathStyle = (stepName: PipelineStep) => {
     return activeStep === stepName
-      ? "text-[#FF4D1F] drop-shadow-[0_0_8px_#FF4D1F]"
+      ? "text-[#6E1A2B] drop-shadow-[0_0_8px_rgba(110,26,43,0.8)]"
       : "text-white/5";
   };
 
@@ -457,10 +457,10 @@ function CardTerminalLogs() {
    ────────────────────────────────────────────────────────── */
 export default function SkillsPage() {
   return (
-    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-8 md:px-14 flex flex-col items-center overflow-hidden">
-      <CinematicBackground />
+    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-6 md:px-10 lg:px-12 flex flex-col items-center overflow-hidden">
+      <CinematicBackground variant="skills" />
 
-      <div className="relative z-10 w-full max-w-[1380px] flex flex-col gap-12 sm:gap-16">
+      <div className="relative z-10 w-full max-w-[1800px] flex flex-col gap-12 sm:gap-16">
         {/* ── TOP EDITORIAL HEADER ── */}
         <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6 shrink-0">
           <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-3">

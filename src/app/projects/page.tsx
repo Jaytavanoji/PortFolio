@@ -290,14 +290,43 @@ function CardMlPredictor() {
 }
 
 /* ──────────────────────────────────────────────────────────
+   Project 5: Interactive 3D Portfolio
+   ────────────────────────────────────────────────────────── */
+function CardCurrentPortfolioWidget() {
+  return (
+    <div className="w-full h-full flex flex-col justify-between p-3.5 gap-2 select-none">
+      <div className="grid grid-cols-2 gap-2 flex-1">
+        <div className="flex flex-col justify-between p-2.5 rounded-xl bg-black/50 border border-white/5">
+          <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase tracking-wider">HERO PIPELINE</span>
+          <span className="text-xs font-bold font-mono text-emerald-400 mt-0.5">60 FPS LERP</span>
+          <span className="text-[7px] font-mono text-[#8A8A8A]">151 FRAMES CANVAS</span>
+        </div>
+        <div className="flex flex-col justify-between p-2.5 rounded-xl bg-black/50 border border-white/5">
+          <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase tracking-wider">SHADERS</span>
+          <span className="text-xs font-bold font-mono text-[#6E1A2B] mt-0.5">FLUTED GLASS</span>
+          <span className="text-[7px] font-mono text-[#8A8A8A]">BURGUNDY WEBGL</span>
+        </div>
+      </div>
+      <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-black/50 border border-white/5">
+        <span className="text-[8px] font-mono text-[#8A8A8A] tracking-wider">STACK</span>
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-[8px] font-mono text-white">NEXT.JS 14 · THREE.JS · TAILWIND</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────
    MAIN PROJECTS PAGE BENTO GRID BUILDER
    ────────────────────────────────────────────────────────── */
 export default function ProjectsPage() {
   return (
-    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-8 md:px-14 flex flex-col items-center overflow-hidden">
-      <CinematicBackground />
+    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-6 md:px-10 lg:px-12 flex flex-col items-center overflow-hidden">
+      <CinematicBackground variant="projects" />
 
-      <div className="relative z-10 w-full max-w-[1380px] flex flex-col gap-12 sm:gap-16">
+      <div className="relative z-10 w-full max-w-[1800px] flex flex-col gap-12 sm:gap-16">
         {/* ── TOP EDITORIAL HEADER ── */}
         <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6 shrink-0">
           <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-3">
@@ -314,7 +343,7 @@ export default function ProjectsPage() {
         </header>
 
         {/* ── PROJECTS BENTO GRID ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 w-full">
           {/* Project 1: LifeDashboard 2.0 */}
           <FeatCard
             title="LifeDashboard 2.0"
@@ -359,30 +388,15 @@ export default function ProjectsPage() {
             <CardMlPredictor />
           </FeatCard>
 
-          {/* Project 5: PulseRoute API Gateway */}
+          {/* Project 5: Interactive 3D Portfolio */}
           <FeatCard
-            title="PulseRoute API Gateway"
-            category="Backend · Distributed Systems"
-            status="In Progress"
-            description="High-throughput async HTTP gateway with rate limiting, JWT auth middleware, circuit breaking, and request telemetry dashboard — built on FastAPI + Redis."
+            title="Interactive 3D Portfolio"
+            category="Frontend Engineering · WebGL & Interactive"
+            status="Featured Live System"
+            description="Next.js 14 interactive portfolio featuring 60fps frame-sequence canvas scrubbing, WebGL fluted glass shader backgrounds, spatial audio controls, and dynamic bento grid layouts."
             githubUrl="https://github.com/Jaytavanoji"
           >
-            <div className="w-full h-full flex flex-col justify-between p-3.5 gap-2">
-              {[
-                { label: "RATE LIMITER", val: "1000 req/min", active: true },
-                { label: "CIRCUIT BREAKER", val: "CLOSED · OK", active: false },
-                { label: "JWT AUTH", val: "RS256 · HS512", active: true },
-                { label: "CACHE TTL", val: "60s · REDIS", active: false },
-              ].map((r) => (
-                <div key={r.label} className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-black/50 border border-white/5">
-                  <span className="text-[8px] font-mono text-[#8A8A8A] tracking-wider">{r.label}</span>
-                  <div className="flex items-center gap-1.5">
-                    <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${r.active ? "bg-emerald-400" : "bg-blue-400"}`} />
-                    <span className="text-[8px] font-mono text-white">{r.val}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <CardCurrentPortfolioWidget />
           </FeatCard>
 
           {/* Project 6: SentinelShield Auth Proxy */}

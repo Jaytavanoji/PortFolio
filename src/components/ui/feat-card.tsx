@@ -37,7 +37,7 @@ export function FeatCard({
         <div className="z-10 flex flex-col gap-1.5">
           {category && status ? (
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[9px] font-mono text-[#FF4D1F] uppercase tracking-widest">
+              <span className="text-[9px] font-mono text-[#6E1A2B] uppercase tracking-widest font-bold">
                 {category}
               </span>
               <div className="flex items-center gap-2">

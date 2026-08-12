@@ -536,10 +536,10 @@ function CardEngineeringSLA() {
    ────────────────────────────────────────────────────────── */
 export default function AboutPage() {
   return (
-    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-8 md:px-14 flex flex-col items-center overflow-hidden">
-      <CinematicBackground />
+    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-6 md:px-10 lg:px-12 flex flex-col items-center overflow-hidden">
+      <CinematicBackground variant="about" />
 
-      <div className="relative z-10 w-full max-w-[1380px] flex flex-col gap-12 sm:gap-16">
+      <div className="relative z-10 w-full max-w-[1800px] flex flex-col gap-12 sm:gap-16">
         {/* ── TOP EDITORIAL HEADER ── */}
         <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6 shrink-0">
           <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-3">
@@ -566,13 +566,13 @@ export default function AboutPage() {
             className="lg:col-span-2 min-h-[280px] w-full h-full"
           >
             <GlareCard className="p-6 sm:p-8 flex flex-col justify-between h-full relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[#FF4D1F]/5 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#6E1A2B]/10 rounded-full blur-3xl pointer-events-none" />
 
               <div className="flex flex-col gap-3.5 max-w-3xl">
                 <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-[0.95] text-white">
                   I BUILD BACKENDS
                   <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-[#FF4D1F]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-[#6E1A2B]">
                     THAT ARE SCALE SAFE.
                   </span>
                 </h2>
@@ -584,7 +584,7 @@ export default function AboutPage() {
               <div className="flex flex-wrap items-center gap-4 pt-6">
                 <Link
                   href="/projects"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF4D1F] hover:bg-[#E63E12] text-white text-[11px] font-bold uppercase tracking-wider transition-all shadow-md hover:scale-105"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#6E1A2B] hover:bg-[#5C1222] text-white text-[11px] font-bold uppercase tracking-wider transition-all shadow-md hover:scale-105"
                 >
                   <span>Projects</span>
                   <ArrowRight className="w-3 h-3" />

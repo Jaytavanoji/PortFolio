@@ -89,7 +89,7 @@ function SmtpWidget({ smtpStep }: SmtpWidgetProps) {
         <motion.path
           d="M 195 70 L 270 70"
           fill="none"
-          stroke="#FF4D1F"
+          stroke="#6E1A2B"
           strokeWidth="1.5"
           animate={{
             pathLength: smtpStep === "delivered" ? 1 : 0,
@@ -125,7 +125,7 @@ function SmtpWidget({ smtpStep }: SmtpWidgetProps) {
                   className={cn(
                     "w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-500",
                     isActive
-                      ? "bg-[#FF4D1F] border-[#FF4D1F] text-white shadow-[0_0_15px_rgba(255,77,31,0.4)]"
+                      ? "bg-[#6E1A2B] border-[#6E1A2B] text-white shadow-[0_0_15px_rgba(110,26,43,0.4)]"
                       : "bg-black/60 border-white/10 text-[#8A8A8A]"
                   )}
                 >
@@ -142,7 +142,7 @@ function SmtpWidget({ smtpStep }: SmtpWidgetProps) {
 
       {/* Top right mini indicator badge */}
       <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 border border-white/10 backdrop-blur-md">
-        <Radio className="w-3 h-3 text-[#FF4D1F] animate-pulse" />
+        <Radio className="w-3 h-3 text-[#6E1A2B] animate-pulse" />
         <span className="text-[8px] font-mono font-bold tracking-wider text-white uppercase">
           {smtpStep === "idle"
             ? "AWAITING MESSAGE"
@@ -272,10 +272,10 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-8 md:px-14 flex flex-col items-center overflow-hidden">
-      <CinematicBackground />
+    <div className="relative w-full min-h-screen text-[#F5F5F5] pb-32 pt-12 sm:pt-20 px-4 sm:px-6 md:px-10 lg:px-12 flex flex-col items-center overflow-hidden">
+      <CinematicBackground variant="contact" />
 
-      <div className="relative z-10 w-full max-w-[1380px] flex flex-col gap-12 sm:gap-16">
+      <div className="relative z-10 w-full max-w-[1800px] flex flex-col gap-12 sm:gap-16">
         {/* ── TOP EDITORIAL HEADER ── */}
         <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6 shrink-0">
           <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-3">
@@ -386,14 +386,14 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Enter your query details..."
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#FF4D1F] transition-all resize-none"
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#6E1A2B] transition-all resize-none"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex items-center justify-center gap-2 w-full sm:w-auto self-end px-6 py-2.5 rounded-xl bg-[#FF4D1F] hover:bg-[#E63E12] disabled:bg-[#FF4D1F]/50 text-white text-[11px] font-bold uppercase tracking-wider transition-all shadow-md hover:scale-105 active:scale-95"
+                      className="flex items-center justify-center gap-2 w-full sm:w-auto self-end px-6 py-2.5 rounded-xl bg-[#6E1A2B] hover:bg-[#5C1222] disabled:bg-[#6E1A2B]/50 text-white text-[11px] font-bold uppercase tracking-wider transition-all shadow-md hover:scale-105 active:scale-95"
                     >
                       {isSubmitting ? (
                         <>
@@ -447,10 +447,10 @@ export default function ContactPage() {
               <div className="flex flex-col gap-2 p-3.5">
                 <button
                   onClick={handleCopyEmail}
-                  className="flex items-center justify-between w-full p-2.5 rounded-lg bg-black/60 border border-white/10 hover:border-[#FF4D1F]/40 transition-all text-left"
+                  className="flex items-center justify-between w-full p-2.5 rounded-lg bg-black/60 border border-white/10 hover:border-[#6E1A2B]/40 transition-all text-left"
                 >
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-[#FF4D1F]" />
+                    <Mail className="w-4 h-4 text-[#6E1A2B]" />
                     <span className="text-[10px] font-mono text-white/80 truncate max-w-[150px]">
                       {emailAddress}
                     </span>

@@ -42,6 +42,7 @@ export const viewport: Viewport = {
 import NavigationDock from "@/components/NavigationDock";
 import { AudioProvider } from "@/context/AudioContext";
 import MusicMiniPlayer from "@/components/MusicMiniPlayer";
+import LenisProvider from "@/components/LenisProvider";
 
 export default function RootLayout({
   children,
@@ -51,11 +52,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark ${inter.variable} ${instrumentSans.variable}`}>
       <body className="bg-black text-[#F5F5F5] font-sans antialiased selection:bg-[#FF4D1F]/30 selection:text-white">
-        <AudioProvider>
-          <MusicMiniPlayer />
-          {children}
-          <NavigationDock />
-        </AudioProvider>
+        <LenisProvider>
+          <AudioProvider>
+            <MusicMiniPlayer />
+            {children}
+            <NavigationDock />
+          </AudioProvider>
+        </LenisProvider>
       </body>
     </html>
   );

@@ -155,7 +155,7 @@ export const GlassDock = React.forwardRef<HTMLDivElement, GlassDockProps>(
                   {isSelected && (
                     <motion.div
                       layoutId="activeDockIndicator"
-                      className="absolute inset-0 rounded-full bg-white/15 border border-white/20 shadow-inner"
+                      className="absolute inset-0 rounded-full bg-[#6E1A2B]/40 border border-[#6E1A2B]/60 shadow-[0_0_12px_rgba(110,26,43,0.4)]"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -187,10 +187,10 @@ export const GlassDock = React.forwardRef<HTMLDivElement, GlassDockProps>(
                           className={cn(
                             "w-5 h-5 transition-colors duration-150",
                             isSelected
-                              ? "text-[#FF4D1F]"
+                              ? "text-white"
                               : isHovered
                               ? "text-white"
-                              : "text-[#A1A1AA]"
+                              : "text-[#A0A0A0]"
                           )}
                         />
                       </motion.div>
@@ -214,10 +214,10 @@ export const GlassDock = React.forwardRef<HTMLDivElement, GlassDockProps>(
                           className={cn(
                             "w-5 h-5 transition-colors duration-150",
                             isSelected
-                              ? "text-[#FF4D1F]"
+                              ? "text-white"
                               : isHovered
                               ? "text-white"
-                              : "text-[#A1A1AA]"
+                              : "text-[#A0A0A0]"
                           )}
                         />
                       </motion.div>

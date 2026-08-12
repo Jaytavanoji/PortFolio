@@ -1,22 +1,24 @@
 "use client";
 
 import React from "react";
-import AnimatedGradient from "@/components/ui/animated-gradient";
+import ShaderBackground from "@/components/ui/ShaderBackground";
 
-const AURORA_CONFIG = { preset: "Aurora" as const, speed: 12 };
+export interface CinematicBackgroundProps {
+  variant?: string;
+  className?: string;
+}
 
-const CinematicBackground = React.memo(function CinematicBackground() {
+export const CinematicBackground = React.memo(function CinematicBackground({
+  className,
+}: CinematicBackgroundProps) {
   return (
     <div
-      className="pointer-events-none fixed -inset-24 z-0 overflow-hidden bg-[#090103]"
+      className="pointer-events-none fixed -inset-24 z-0 overflow-hidden bg-[#050505]"
       aria-hidden="true"
     >
-      <AnimatedGradient
-        config={AURORA_CONFIG}
-        className="w-full h-full opacity-90"
-      />
-      {/* Dark vignette overlay for depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(5,1,2,0.7)_100%)] pointer-events-none" />
+      <ShaderBackground className="w-full h-full opacity-60" />
+      {/* Dark vignette overlay for contrast and typography readability */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(5,5,5,0.85)_100%)] pointer-events-none z-10" />
     </div>
   );
 });
