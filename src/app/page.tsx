@@ -567,45 +567,43 @@ export default function MasterCinematicScrollPortfolio() {
       <CinematicScrollSection 
         id="music" 
         pinned={true} 
-        autoPan={true} 
+        autoPan={false} 
         travelHeight="400vh" 
         watermarkText="music" 
-        glowRgb="244, 63, 94"
-        accentHex="#F43F5E"
-        bgHex="#0F0205"
-        bgGradient="radial-gradient(ellipse at 50% 40%, #200308 0%, #160205 30%, #0d0103 60%, #060102 85%, #020101 100%)"
+        glowRgb="181, 47, 67"
+        accentHex="#B52F43"
+        bgHex="#0D0709"
+        bgGradient="radial-gradient(ellipse at 50% 45%, #0D0709 0%, #0C0608 25%, rgba(61,16,24,0.15) 45%, #0B0507 70%, #090506 100%)"
         hideHeaderLine={true}
       >
         {() => (
-          <div className="relative w-full h-full flex flex-col items-center justify-between py-12 px-4 overflow-hidden">
-            {/* Background elements specific to the Music page */}
-            {/* 1. Large subtle background editorial watermark: M U S I C */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden">
-              <span className="font-sans text-[22vw] font-black tracking-[0.2em] text-[#B52F43]/[0.03] select-none uppercase leading-none mt-[-10vh]">
+          <div className="relative w-full h-screen overflow-hidden">
+
+            {/* ── Background layers ── */}
+            {/* 1. Large subtle MUSIC watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+              <span className="font-sans text-[28vw] font-black tracking-[0.2em] text-[#B52F43]/[0.025] select-none uppercase leading-none">
                 MUSIC
               </span>
             </div>
-            
-            {/* 2. Grid overlay */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:32px_32px] z-0 pointer-events-none opacity-40" />
 
-            {/* 3. Radial center spotlight */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(181,47,67,0.08)_0%,transparent_70%)] z-0 pointer-events-none" />
+            {/* 2. Subtle grid */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:32px_32px] z-0 pointer-events-none opacity-30" />
 
-            {/* 4. Vignette */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(6,2,3,0.9)_100%)] z-0 pointer-events-none" />
+            {/* 3. Radial crimson spotlight */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(181,47,67,0.10)_0%,transparent_65%)] z-0 pointer-events-none" />
 
-            {/* Elegant Chapter Identifier (Top Left) */}
-            <div className="absolute top-8 left-8 sm:left-12 flex flex-col items-start z-20 select-none">
+            {/* 4. Edge vignette */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(9,5,6,0.85)_100%)] z-0 pointer-events-none" />
+
+            {/* ── Chapter label — absolute top-left ── */}
+            <div className="absolute top-6 left-8 sm:left-12 flex flex-col items-start z-20 select-none">
               <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.35em] text-[#B52F43]/60">05</span>
-              <span className="font-sans text-lg sm:text-xl font-black tracking-widest text-[#F43F5E] leading-none mt-1">MUSIC</span>
+              <span className="font-sans text-lg sm:text-xl font-black tracking-widest text-[#B52F43] leading-none mt-1">MUSIC</span>
             </div>
 
-            {/* Top Spacer to push content down */}
-            <div className="h-6 sm:h-8" />
-
-            {/* Immersive Full Screen Carousel Container - Constrained vertically to prevent overlap */}
-            <div className="w-full flex-1 flex items-center justify-center relative z-10 px-4 max-h-[300px] sm:max-h-[360px] md:max-h-[400px] overflow-visible">
+            {/* ── Carousel — full canvas, centered ── */}
+            <div className="absolute inset-0 flex items-center justify-center z-10">
               <DiagonalMusicCarousel
                 tracks={tracks}
                 activeIndex={currentTrackIndex}
@@ -614,20 +612,23 @@ export default function MasterCinematicScrollPortfolio() {
               />
             </div>
 
-            {/* Redesigned Music Controls in flow at the bottom */}
-            <div className="w-full max-w-md mt-6 sm:mt-8 mb-2 relative z-20">
-              <MusicControls
-                currentTrack={currentTrack}
-                isPlaying={isPlaying}
-                currentTime={currentTime}
-                duration={duration}
-                progress={progress}
-                onTogglePlay={togglePlay}
-                onNext={nextTrack}
-                onPrev={prevTrack}
-                onSeek={seek}
-              />
+            {/* ── Controls — absolute bottom overlay ── */}
+            <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 flex justify-center z-20 px-4">
+              <div className="w-full max-w-sm sm:max-w-md">
+                <MusicControls
+                  currentTrack={currentTrack}
+                  isPlaying={isPlaying}
+                  currentTime={currentTime}
+                  duration={duration}
+                  progress={progress}
+                  onTogglePlay={togglePlay}
+                  onNext={nextTrack}
+                  onPrev={prevTrack}
+                  onSeek={seek}
+                />
+              </div>
             </div>
+
           </div>
         )}
       </CinematicScrollSection>

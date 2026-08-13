@@ -105,7 +105,7 @@ export default function DiagonalMusicCarousel({
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-5xl h-[360px] sm:h-[420px] md:h-[480px] flex flex-col items-center justify-center select-none overflow-visible touch-none cursor-grab active:cursor-grabbing"
+      className="relative w-full max-w-6xl h-[420px] sm:h-[520px] md:h-[600px] lg:h-[640px] flex flex-col items-center justify-center select-none overflow-visible touch-none cursor-grab active:cursor-grabbing"
     >
       {/* Ambient Crimson Glow behind active artwork */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 bg-[#F43F5E]/15 rounded-full blur-3xl pointer-events-none transition-all duration-700" />
