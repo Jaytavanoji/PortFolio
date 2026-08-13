@@ -6,18 +6,18 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 // ============================================================================
-// 1. EXACT FRAME CONFIGURATION (Frames 1 to 151 inclusive = 151 frames @ 50fps)
+// 1. EXACT FRAME CONFIGURATION (Frames 1 to 240 inclusive = 240 frames)
 // ============================================================================
 const START_FRAME = 1;
-const END_FRAME = 151;
-const TOTAL_FRAMES = END_FRAME - START_FRAME + 1; // 151 frames
+const END_FRAME = 240;
+const TOTAL_FRAMES = END_FRAME - START_FRAME + 1; // 240 frames
 
-// Configurable smoothing factor (0.08 provides silky, 50fps buttery Apple-grade momentum decay)
+// Configurable smoothing factor for Lenis momentum interpolation
 const LERP_FACTOR = 0.08;
 
-// Path mapping: Zero-overhead WebP frame assets
+// Path mapping: Zero-overhead 240-frame WebP assets (frame_0001.webp to frame_0240.webp)
 const getFrameSrc = (frameNum: number): string => {
-  const padded = String(frameNum).padStart(6, "0");
+  const padded = String(frameNum).padStart(4, "0");
   return `/webp/frame_${padded}.webp`;
 };
 
@@ -342,7 +342,7 @@ export default function IsolatedCinematicHeroPage() {
       <main
         ref={containerRef}
         className="relative w-full bg-[#050505]"
-        style={{ height: "1000vh" }} // Calibrated travel distance for 151 frames @ 50fps smooth scrub
+        style={{ height: "1200vh" }} // Calibrated travel distance for 240 frames smooth Lenis scrub
       >
         {/* Sticky Fullscreen 100vw x 100svh Canvas Stage */}
         <div className="sticky top-0 left-0 w-full h-[100svh] overflow-hidden bg-black flex flex-col justify-between">
