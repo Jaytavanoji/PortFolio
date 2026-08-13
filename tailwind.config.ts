@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#09090B",
+        background: "#050505",
         foreground: "#F5F5F5",
         brand: {
           orange: "#6E1A2B",
@@ -21,17 +21,22 @@ const config: Config = {
           secondary: "#A0A0A0",
           muted: "#666666",
         },
-        burgundy: {
-          DEFAULT: "#6E1A2B",
-          dark: "#2A080F",
-          wine: "#5C1222",
-          light: "#7A2435",
-          accent: "#6E1A2B",
+        landing: {
+          surface: "rgba(255, 255, 255, 0.10)",
+          "surface-hover": "rgba(255, 255, 255, 0.16)",
+          border: "rgba(255, 255, 255, 0.10)",
+          "border-strong": "rgba(255, 255, 255, 0.20)",
+          text: "rgba(255, 255, 255, 0.80)",
+          "text-muted": "rgba(255, 255, 255, 0.60)",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-instrument-sans)", "var(--font-inter)", "sans-serif"],
+        deltha: ["var(--font-deltha)", "Deltha", "sans-serif"],
+        megunso: ["var(--font-megunso)", "Megunso", "sans-serif"],
+        runtime: ["var(--font-runtime)", "Runtime", "sans-serif"],
+        sans: ["var(--font-runtime)", "Runtime", "sans-serif"],
+        display: ["var(--font-deltha)", "Deltha", "sans-serif"],
+        serif: ["Instrument Serif", "serif"],
       },
       keyframes: {
         "fade-in": {
@@ -43,10 +48,17 @@ const config: Config = {
           "50%": { backgroundPosition: "350% 50%, 150% 50%" },
           "100%": { backgroundPosition: "50% 50%, 50% 50%" },
         },
+        "fade-rise": {
+          "0%": { opacity: "0", transform: "translateY(14px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "aurora-bg": "aurora-bg 60s linear infinite",
+        "fade-rise": "fade-rise 0.8s ease-out both",
+        "fade-rise-delay": "fade-rise 0.8s ease-out 0.25s both",
+        "fade-rise-delay-2": "fade-rise 0.8s ease-out 0.5s both",
       },
     },
   },

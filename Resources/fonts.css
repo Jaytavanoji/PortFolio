@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'Deltha';
+  src: url('./fonts/deltha/DelthaRegular-GOgrm.otf') format('opentype'),
+       url('./fonts/deltha/DelthaRegular-JR027.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Megunso';
+  src: url('./fonts/megunso/MegunsoDemoVersion-j9WD7.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Runtime';
+  src: url('./fonts/runtime/RuntimeRegular-m2Odx.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-deltha: 'Deltha', sans-serif;
+  --font-megunso: 'Megunso', sans-serif;
+  --font-runtime: 'Runtime', sans-serif;
+}

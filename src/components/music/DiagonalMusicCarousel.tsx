@@ -107,28 +107,6 @@ export default function DiagonalMusicCarousel({
       ref={containerRef}
       className="relative w-full max-w-6xl h-[420px] sm:h-[520px] md:h-[600px] lg:h-[640px] flex flex-col items-center justify-center select-none overflow-visible touch-none cursor-grab active:cursor-grabbing"
     >
-      {/* Ambient Crimson Glow behind active artwork */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 bg-[#F43F5E]/15 rounded-full blur-3xl pointer-events-none transition-all duration-700" />
-
-      {/* Side Quick Navigation Arrow Badges */}
-      <button
-        type="button"
-        onClick={() => onSelectTrack((activeIndex - 1 + tracks.length) % tracks.length)}
-        aria-label="Previous song"
-        className="absolute left-2 sm:left-8 z-40 p-2.5 sm:p-3 rounded-full bg-black/60 border border-white/10 hover:border-white/30 text-white/70 hover:text-white backdrop-blur-md transition-all hover:scale-110 active:scale-95"
-      >
-        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => onSelectTrack((activeIndex + 1) % tracks.length)}
-        aria-label="Next song"
-        className="absolute right-2 sm:right-8 z-40 p-2.5 sm:p-3 rounded-full bg-black/50 border border-white/10 hover:border-white/30 text-white/70 hover:text-white backdrop-blur-md transition-all hover:scale-110 active:scale-95"
-      >
-        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-      </button>
-
       {/* ── SPATIAL DIAGONAL CAROUSEL TRACKS ── */}
       <div className="relative w-full h-full flex items-center justify-center">
         {tracks.map((track, index) => {
@@ -139,9 +117,9 @@ export default function DiagonalMusicCarousel({
           const xOffset = offset * 210; // Horizontal spacing
           const yOffset = offset * 38;  // Vertical shift
           const rotation = offset * -6;  // Spatial tilt
-          const scale = isActive ? 1 : Math.max(0.72, 1 - Math.abs(offset) * 0.14);
-          const opacity = isActive ? 1 : Math.max(0.35, 1 - Math.abs(offset) * 0.35);
-          const zIndex = isActive ? 30 : 20 - Math.abs(offset);
+          const scale = isActive ? 1 : 0.85;
+          const opacity = isActive ? 1 : 0;
+          const zIndex = isActive ? 30 : 0;
 
           return (
             <motion.div
@@ -172,7 +150,7 @@ export default function DiagonalMusicCarousel({
               }}
               className={cn(
                 "absolute cursor-pointer transition-shadow group flex flex-col items-center",
-                isActive ? "pointer-events-auto" : "pointer-events-auto hover:opacity-75"
+                isActive ? "pointer-events-auto" : "pointer-events-none"
               )}
             >
               {/* Album Artwork Card */}
@@ -180,7 +158,7 @@ export default function DiagonalMusicCarousel({
                 className={cn(
                   "relative rounded-2xl overflow-hidden border transition-all duration-500 bg-black/60",
                   isActive
-                    ? "w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] border-white/25 shadow-[0_18px_40px_rgba(0,0,0,0.85),0_0_28px_rgba(244,63,94,0.25)]"
+                    ? "w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] border-white/25 shadow-[0_18px_40px_rgba(0,0,0,0.85)]"
                     : "w-[150px] h-[150px] sm:w-[190px] sm:h-[190px] md:w-[210px] md:h-[210px] border-white/10 shadow-[0_10px_25px_rgba(0,0,0,0.55)]"
                 )}
               >

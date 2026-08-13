@@ -22,19 +22,22 @@ import {
   Copy,
   Check,
   Zap,
+  ArrowUpRight,
 } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ImageText } from "@/components/ui/image-text";
 import { FeatCard } from "@/components/ui/feat-card";
+import { FooterSection } from "@/components/ui/footer-section";
 import { GlareCard } from "@/components/ui/glare-card";
 import CinematicBackground from "@/components/ui/CinematicBackground";
 
 // Modular Cinematic Narrative Components
 import CinematicScrollSection from "@/components/cinematic/CinematicScrollSection";
-import EditorialAboutSection from "@/components/cinematic/EditorialAboutSection";
+import AboutSection from "@/components/cinematic/AboutSection";
 import EditorialSkillsSection from "@/components/cinematic/EditorialSkillsSection";
-import StickyProjectsShowcase from "@/components/cinematic/StickyProjectsShowcase";
+import ProjectsSection from "@/components/cinematic/ProjectsSection";
+import SelectedProjectDetail from "@/components/cinematic/SelectedProjectDetail";
 import AiExperimentsSection from "@/components/cinematic/AiExperimentsSection";
 import { CrowdCanvas } from "@/components/ui/crowd-canvas";
 
@@ -110,7 +113,7 @@ function CardTimeline() {
               <span className="text-[10px] font-bold text-white tracking-wide truncate">
                 {evt.title}
               </span>
-              <span className="text-[8px] font-mono text-[#8A8A8A] truncate">
+              <span className="text-[8px] font-runtime text-[#8A8A8A] truncate">
                 {evt.detail}
               </span>
             </div>
@@ -128,8 +131,8 @@ function CardRagPipeline() {
   return (
     <div className="w-full h-full flex flex-col justify-between p-3.5 gap-2">
       <div className="flex items-center justify-between">
-        <span className="text-[9px] font-mono text-[#8A8A8A]">VECTOR INGESTION PIPELINE</span>
-        <span className="text-[8px] font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-500/20">
+        <span className="text-[9px] font-runtime text-[#8A8A8A]">VECTOR INGESTION PIPELINE</span>
+        <span className="text-[8px] font-runtime text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-500/20">
           QDRANT DISTRIBUTED
         </span>
       </div>
@@ -143,7 +146,7 @@ function CardRagPipeline() {
           <div key={step.name} className="flex flex-col items-center p-2 rounded-xl bg-black/60 border border-white/5 text-center">
             <step.icon className="w-4 h-4 text-[#8E2938] mb-1" />
             <span className="text-[9px] font-bold text-white tracking-wider">{step.name}</span>
-            <span className="text-[7px] font-mono text-[#8A8A8A] mt-0.5">{step.status}</span>
+            <span className="text-[7px] font-runtime text-[#8A8A8A] mt-0.5">{step.status}</span>
           </div>
         ))}
       </div>
@@ -431,7 +434,7 @@ export default function MasterCinematicScrollPortfolio() {
             {/* Header Badge */}
             <div className="relative z-20 w-full px-6 sm:px-10 pt-6 sm:pt-8 flex items-center justify-between pointer-events-none">
               <div className="flex items-center px-4 py-2 bg-black border-2 border-white shadow-[4px_4px_0px_#6E1A2B] transition-all pointer-events-auto select-none">
-                <span className="font-mono text-xs sm:text-sm font-black tracking-[0.2em] uppercase text-white">
+                <span className="font-runtime text-xs sm:text-sm font-black tracking-[0.2em] uppercase text-white">
                   JAY TAVANOJI
                 </span>
               </div>
@@ -501,75 +504,82 @@ export default function MasterCinematicScrollPortfolio() {
         </main>
       </section>
 
-      {/* ── 2. ABOUT SECTION (PINNED LOCK EFFECT) ── */}
+      {/* ── 01. ABOUT SECTION (LIGHT THEME DEDICATED HEADER & CONTENT) ── */}
       <CinematicScrollSection 
         id="about" 
         pinned={true} 
-        travelHeight="450vh" 
-        watermarkText="A B O U T" 
-        subtext="IDENTITY & ARCHITECTURE"
-        glowRgb="200, 200, 200"
-        accentHex="#C0C0C0"
-        bgHex="#090A0C"
+        autoPan={true} 
+        travelHeight="300vh" 
+        watermarkText="ABOUT" 
+        subtext="IDENTITY & PHILOSOPHY"
+        glowRgb="220, 225, 230"
+        accentHex="#1E293B"
+        bgHex="#FAFAFA"
       >
-        {(progress) => <EditorialAboutSection progress={progress} />}
+        {() => <AboutSection />}
       </CinematicScrollSection>
 
-      {/* ── 3. SKILLS SECTION (PINNED LOCK EFFECT) ── */}
+      {/* ── 02. TECH STACK SECTION (DEDICATED SCROLL HEADER) ── */}
       <CinematicScrollSection 
         id="skills" 
         pinned={true} 
         autoPan={true} 
-        travelHeight="400vh" 
-        watermarkText="tech-stack" 
+        travelHeight="300vh" 
+        watermarkText="TECH STACK" 
         subtext="SYSTEMS & PIPELINES"
-        glowRgb="160, 174, 192"
-        accentHex="#94A3B8"
-        bgHex="#08090B"
+        glowRgb="0, 0, 0"
+        accentHex="#CBD5E1"
+        bgHex="#000000"
+        fullWidth={true}
       >
-        {(progress) => <EditorialSkillsSection progress={progress} />}
+        {() => <EditorialSkillsSection />}
       </CinematicScrollSection>
 
-      {/* ── 4. PROJECTS SECTION (PINNED LOCK EFFECT) ── */}
+      {/* ── 03. PROJECTS SECTION (RESTORED 3D STACKING CARDS ANIMATION) ── */}
+      <div id="projects">
+        <ProjectsSection />
+      </div>
+
+      {/* ── 04. FEATURED PROJECT CASE STUDY (BLACK BG) ── */}
       <CinematicScrollSection 
-        id="projects" 
+        id="featured-project" 
         pinned={true} 
         autoPan={true} 
-        travelHeight="450vh" 
-        watermarkText="P R O J E C T S" 
-        subtext="CASE STUDIES & PRODUCTS"
-        glowRgb="226, 232, 240"
-        accentHex="#E2E8F0"
-        bgHex="#050505"
+        travelHeight="300vh" 
+        watermarkText="FEATURED PROJECT" 
+        subtext="FEATURED ARCHITECTURE"
+        glowRgb="0, 0, 0"
+        accentHex="#CBD5E1"
+        bgHex="#000000"
       >
-        {(progress) => <StickyProjectsShowcase progress={progress} />}
+        {() => <SelectedProjectDetail />}
       </CinematicScrollSection>
 
-      {/* ── 5. AI / EXPERIMENTS SECTION (PINNED LOCK EFFECT) ── */}
+      {/* ── 05. EXPERIMENTS & AI LAB (WHITE BG DEDICATED HEADER & CONTENT) ── */}
       <CinematicScrollSection 
         id="ai-experiments" 
         pinned={true} 
         autoPan={true} 
-        travelHeight="400vh" 
-        watermarkText="E X P E R I M E N T S" 
+        travelHeight="300vh" 
+        watermarkText="EXPERIMENTS" 
         subtext="RESEARCH & PROTOTYPES"
-        glowRgb="148, 163, 184"
-        accentHex="#CBD5E1"
-        bgHex="#060709"
+        glowRgb="220, 220, 225"
+        accentHex="#1E293B"
+        bgHex="#FFFFFF"
       >
         {() => <AiExperimentsSection />}
       </CinematicScrollSection>
 
-      {/* ── 6. MUSIC SECTION (PINNED LOCK EFFECT — 🔒 CAROUSEL SCENE) ── */}
+      {/* ── 06. MUSIC SECTION (PINNED LOCK EFFECT — 🔒 CAROUSEL SCENE) ── */}
       <CinematicScrollSection 
         id="music" 
         pinned={true} 
         autoPan={false} 
-        travelHeight="400vh" 
-        watermarkText="music" 
-        glowRgb="200, 210, 220"
+        travelHeight="300vh" 
+        watermarkText="MUSIC" 
+        glowRgb="0, 0, 0"
         accentHex="#E2E8F0"
-        bgHex="#060607"
+        bgHex="#000000"
         hideHeaderLine={true}
         fullWidth={true}
       >
@@ -580,19 +590,11 @@ export default function MasterCinematicScrollPortfolio() {
             {/* Animated Crowd Canvas Background */}
             <CrowdCanvas src="/images/peeps/all-peeps.png" rows={15} cols={7} className="absolute bottom-0 h-full w-full opacity-25 pointer-events-none z-0 filter invert contrast-200" />
 
-
-
             {/* 2. Subtle grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:32px_32px] z-0 pointer-events-none opacity-30" />
 
-            {/* ── Chapter label — absolute top-left ── */}
-            <div className="absolute top-6 left-8 sm:left-12 flex flex-col items-start z-20 select-none">
-              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.35em] text-[#CBD5E1]/60">05</span>
-              <span className="font-sans text-lg sm:text-xl font-black tracking-widest text-[#E2E8F0] leading-none mt-1">MUSIC</span>
-            </div>
-
             {/* ── Carousel — full canvas, centered ── */}
-            <div className="absolute inset-0 flex items-center justify-center z-10">
+            <div className="absolute inset-0 flex items-center justify-center z-10 -translate-y-10 sm:-translate-y-12">
               <DiagonalMusicCarousel
                 tracks={tracks}
                 activeIndex={currentTrackIndex}
@@ -602,7 +604,7 @@ export default function MasterCinematicScrollPortfolio() {
             </div>
 
             {/* ── Controls — absolute bottom overlay ── */}
-            <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 flex justify-center z-20 px-4">
+            <div className="absolute bottom-14 sm:bottom-20 left-0 right-0 flex justify-center z-20 px-4">
               <div className="w-full max-w-sm sm:max-w-md">
                 <MusicControls
                   currentTrack={currentTrack}
@@ -622,146 +624,204 @@ export default function MasterCinematicScrollPortfolio() {
         )}
       </CinematicScrollSection>
 
-      {/* ── 7. CONTACT SECTION & WEBSITE ENDING (PINNED LOCK EFFECT) ── */}
+      {/* ── 7. CONTACT SECTION & WEBSITE ENDING (LIGHT THEME) ── */}
       <CinematicScrollSection 
         id="contact" 
         pinned={true} 
         autoPan={true} 
-        travelHeight="350vh" 
+        travelHeight="300vh" 
         watermarkText="C O N T A C T" 
         subtext="CONNECT & BUILD"
-        glowRgb="180, 180, 180"
-        accentHex="#CBD5E1"
-        bgHex="#050505"
+        glowRgb="220, 220, 225"
+        accentHex="#1E293B"
+        bgHex="#FFFFFF"
       >
         {() => (
-          <div className="flex flex-col gap-8 max-w-[1400px] mx-auto px-4 w-full h-full justify-center">
-            <div className="flex items-center gap-1.5 font-mono text-sm tracking-wider uppercase mb-2">
-              <span className="text-[#CBD5E1]">main /</span>
-              <span className="text-[#CBD5E1] font-bold">get in touch</span>
-            </div>
+          <div className="flex flex-col justify-between max-w-6xl mx-auto px-4 sm:px-8 w-full min-h-full py-12 text-neutral-900 font-runtime select-none bg-white">
+            
+            {/* ── SYMMETRICAL 2-COLUMN CONTACT GRID (6-COL + 6-COL) ── */}
+            <div className="my-auto py-6">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                {/* Left Side (6 Cols): Support Form Card */}
+                <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-neutral-50 border border-neutral-200 shadow-xl">
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-runtime text-neutral-500 font-bold tracking-widest uppercase">ENGINEERING SUPPORT</span>
+                      <span className="p-2 rounded-xl bg-neutral-200 text-neutral-900 shadow-sm">
+                        <Mail className="w-4 h-4" />
+                      </span>
+                    </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <GlareCard className="p-8 flex flex-col justify-between min-h-[360px] bg-[#14161B] text-white border border-white/20 shadow-2xl shadow-black/60">
-                <div className="flex flex-col gap-4">
-                  <h3 className="text-2xl font-black text-white">Direct Transmission</h3>
-                  <p className="text-xs text-[#CBD5E1] leading-relaxed">
-                    Available for software engineering roles, backend architecture, and AI pipeline collaborations.
-                  </p>
+                    <h3 className="text-2xl font-deltha font-bold text-neutral-950 uppercase tracking-wider mb-6">
+                      NEED ENGINEERING HELP?
+                    </h3>
 
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/10 border border-white/20">
-                    <Mail className="w-4 h-4 text-[#8E2938]" />
-                    <span className="text-xs font-mono text-white select-all">
-                      jayshankartavanoji2020@gmail.com
-                    </span>
-                    <button
-                      onClick={copyEmailToClipboard}
-                      className="ml-auto p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-all"
-                    >
-                      {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
+                    <form onSubmit={handleContactSubmit} className="flex flex-col gap-4">
+                      <div className="flex flex-col gap-1">
+                        <label className="text-[10px] font-runtime text-neutral-600 font-bold uppercase">Your Name *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="Jay Tavanoji"
+                          className="px-4 py-3 rounded-xl bg-white border border-neutral-300 text-neutral-900 text-xs focus:outline-none focus:border-neutral-900 transition-all placeholder:text-neutral-400"
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <label className="text-[10px] font-runtime text-neutral-600 font-bold uppercase">Email *</label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="you@example.com"
+                          className="px-4 py-3 rounded-xl bg-white border border-neutral-300 text-neutral-900 text-xs focus:outline-none focus:border-neutral-900 transition-all placeholder:text-neutral-400"
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <label className="text-[10px] font-runtime text-neutral-600 font-bold uppercase">Message *</label>
+                        <textarea
+                          required
+                          rows={3}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          placeholder="Tell us what you're looking for—software roles, backend projects, or AI pipelines."
+                          className="px-4 py-3 rounded-xl bg-white border border-neutral-300 text-neutral-900 text-xs focus:outline-none focus:border-neutral-900 transition-all placeholder:text-neutral-400 resize-none"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-neutral-900 text-white font-runtime text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-all disabled:opacity-50 mt-2 shadow-lg"
+                      >
+                        {isSubmitting ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <>
+                            <span>Send Message</span>
+                            <Send className="w-3.5 h-3.5" />
+                          </>
+                        )}
+                      </button>
+
+                      {submitStatus === "success" && (
+                        <span className="text-xs font-runtime text-emerald-600 text-center font-bold">
+                          Message sent successfully!
+                        </span>
+                      )}
+                    </form>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 pt-6 border-t border-white/15">
-                  <a
-                    href="https://github.com/Jaytavanoji"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-xs font-mono text-[#CBD5E1] hover:text-white transition-colors"
-                  >
-                    <Github className="w-4 h-4" />
-                    <span>GitHub</span>
-                  </a>
-                  <a
-                    href="https://linkedin.com/in/jaytavanoji"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-xs font-mono text-[#CBD5E1] hover:text-white transition-colors"
-                  >
-                    <Linkedin className="w-4 h-4" />
-                    <span>LinkedIn</span>
-                  </a>
+                {/* Right Side (6 Cols): Ready to Build Panel */}
+                <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-neutral-50 border border-neutral-200 shadow-xl">
+                  <div>
+                    <h2 className="text-3xl sm:text-4xl font-deltha font-bold uppercase tracking-tight text-neutral-950 leading-tight mb-6">
+                      READY TO BUILD SOMETHING EXTRAORDINARY?
+                    </h2>
+
+                    {/* Developer Lead Card */}
+                    <div className="p-4 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-between gap-4 mb-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-neutral-100 border border-neutral-300 flex items-center justify-center font-deltha font-bold text-neutral-900 text-sm">
+                          JT
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-runtime text-neutral-500 font-bold tracking-widest uppercase block">SOFTWARE DEVELOPER</span>
+                          <h4 className="font-deltha font-bold text-neutral-950 text-sm">Jay Tavanoji</h4>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={copyEmailToClipboard}
+                        className="px-3.5 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 font-runtime text-xs font-bold transition-all flex items-center gap-1.5"
+                      >
+                        {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copiedEmail ? "Copied" : "Copy Email"}</span>
+                      </button>
+                    </div>
+
+                    {/* Contact Links & Email */}
+                    <div className="space-y-4 mb-6 pt-4 border-t border-neutral-200">
+                      <div>
+                        <p className="text-xs text-neutral-500 font-runtime uppercase tracking-wider font-bold mb-1">Direct Email</p>
+                        <a
+                          href="mailto:jayshankartavanoji2020@gmail.com"
+                          className="inline-flex items-center gap-2 font-runtime text-xs sm:text-sm font-bold text-neutral-900 hover:underline break-all"
+                        >
+                          <Mail className="w-4 h-4 text-neutral-900 flex-shrink-0" />
+                          <span>jayshankartavanoji2020@gmail.com</span>
+                        </a>
+                      </div>
+
+                      <div>
+                        <p className="text-xs text-neutral-500 font-runtime uppercase tracking-wider font-bold mb-1">WhatsApp Direct</p>
+                        <a
+                          href="https://wa.me/918618507400?text=Hi%20Jay%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20connect!"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-neutral-900 text-white font-runtime text-xs font-bold hover:bg-neutral-800 transition-all shadow-md"
+                        >
+                          <span>Chat on WhatsApp</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+
+                      <div>
+                        <p className="text-xs text-neutral-500 font-runtime uppercase tracking-wider font-bold mb-1">Social Profiles</p>
+                        <div className="flex items-center gap-2">
+                          <a
+                            href="https://github.com/Jaytavanoji"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-full bg-white border border-neutral-300 text-neutral-900 hover:bg-neutral-900 hover:text-white transition-all shadow-sm"
+                          >
+                            <Github className="w-4 h-4" />
+                          </a>
+                          <a
+                            href="https://www.linkedin.com/in/jay-tavanoji-4606b93b9"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-full bg-white border border-neutral-300 text-neutral-900 hover:bg-neutral-900 hover:text-white transition-all shadow-sm"
+                          >
+                            <Linkedin className="w-4 h-4" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Sitemap & Copyright */}
+                  <div className="pt-4 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-3 font-runtime text-xs text-neutral-500 font-medium">
+                    <div className="flex items-center gap-3">
+                      <a href="#about" className="hover:text-neutral-900 transition-colors">About</a>
+                      <a href="#skills" className="hover:text-neutral-900 transition-colors">Tech Stack</a>
+                      <a href="#projects" className="hover:text-neutral-900 transition-colors">Projects</a>
+                      <a href="#experiments" className="hover:text-neutral-900 transition-colors">Experiments</a>
+                    </div>
+                    <div>
+                      © {new Date().getFullYear()} Jay Tavanoji
+                    </div>
+                  </div>
+
                 </div>
-              </GlareCard>
 
-              <form onSubmit={handleContactSubmit} className="flex flex-col gap-4 p-8 rounded-2xl bg-[#14161B] border border-white/20 shadow-2xl shadow-black/60">
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-mono text-[#CBD5E1] uppercase">Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Your Name"
-                    className="px-4 py-2.5 rounded-xl bg-black/5 border border-white/15 text-white text-xs focus:outline-none focus:border-[#94A3B8] transition-all placeholder:text-[#CBD5E1]/50"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-mono text-[#CBD5E1] uppercase">Email</label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="your.email@domain.com"
-                    className="px-4 py-2.5 rounded-xl bg-black/5 border border-white/15 text-white text-xs focus:outline-none focus:border-[#94A3B8] transition-all placeholder:text-[#CBD5E1]/50"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-mono text-[#CBD5E1] uppercase">Message</label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Write your message..."
-                    className="px-4 py-2.5 rounded-xl bg-black/5 border border-white/15 text-white text-xs focus:outline-none focus:border-[#94A3B8] transition-all placeholder:text-[#CBD5E1]/50 resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#334155] hover:bg-[#475569] border border-white/20 text-white shadow-lg text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 mt-2"
-                >
-                  {isSubmitting ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <>
-                      <span>Send Message</span>
-                      <Send className="w-3.5 h-3.5" />
-                    </>
-                  )}
-                </button>
-
-                {submitStatus === "success" && (
-                  <span className="text-xs font-mono text-emerald-400 text-center">
-                    Message sent successfully!
-                  </span>
-                )}
-                {submitStatus === "error" && (
-                  <span className="text-xs font-mono text-red-400 text-center">
-                    Failed to send message. Please try again.
-                  </span>
-                )}
-              </form>
+              </div>
             </div>
 
-            {/* Thorough Website Ending Copyright & Footer Line */}
-            <div className="w-full pt-12 mt-12 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-4 font-mono text-xs text-[#CBD5E1]">
-              <div>
-                <span className="text-white font-bold">Jay Shankar Tavanoji</span> · Creative Engineering Portfolio
-              </div>
-              <div className="text-[11px] text-[#CBD5E1]">
-                © {new Date().getFullYear()} All Rights Reserved · Built with Next.js 14 & Framer Motion
-              </div>
-            </div>
           </div>
         )}
       </CinematicScrollSection>
+
+      {/* ── 8. SOURCE-OF-TRUTH FOOTER SECTION ── */}
+      <div className="w-full bg-white py-8">
+        <FooterSection />
+      </div>
     </div>
   );
 }

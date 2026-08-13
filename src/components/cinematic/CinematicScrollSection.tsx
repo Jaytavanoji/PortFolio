@@ -14,6 +14,7 @@ interface CinematicScrollSectionProps {
   glowRgb?: string;     // Color code for ambient glow (e.g. "110, 26, 43")
   accentHex?: string;   // Color code for text accent (e.g. "#6E1A2B")
   bgHex?: string;       // Background base color (e.g. "#050505")
+  textColorHex?: string; // Color code for header heading text
   hideHeaderLine?: boolean; // Hides the top watermark line overlay
   fullWidth?: boolean;      // Spans 100% full viewport width without side margins
   children: (progress: MotionValue<number>) => React.ReactNode;
@@ -21,7 +22,7 @@ interface CinematicScrollSectionProps {
 
 export default function CinematicScrollSection({
   id,
-  travelHeight = "400vh",
+  travelHeight = "300vh",
   watermarkText,
   subtext,
   pinned = false,
@@ -29,7 +30,8 @@ export default function CinematicScrollSection({
   glowRgb = "110, 26, 43",
   accentHex = "#6E1A2B",
   bgHex = "#050505",
-  hideHeaderLine = false,
+  textColorHex,
+  hideHeaderLine = true,
   fullWidth = false,
   children,
 }: CinematicScrollSectionProps) {
@@ -132,6 +134,7 @@ export default function CinematicScrollSection({
               glowRgb={glowRgb}
               accentHex={accentHex}
               bgHex={bgHex}
+              textColorHex={textColorHex}
             />
           </motion.div>
 

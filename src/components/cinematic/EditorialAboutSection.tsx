@@ -62,11 +62,7 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
         }}
         className="absolute inset-0 flex flex-col items-center justify-between py-6 px-4 max-w-5xl mx-auto z-10"
       >
-        {/* Top Breadcrumb */}
-        <div className="flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase">
-          <span className="text-[#94A3B8]">main /</span>
-          <span className="text-[#C0C0C0] font-bold">about</span>
-        </div>
+
 
         {/* Focal Introduction Statement */}
         <div className="flex flex-col items-center text-center my-auto max-w-4xl px-2">
@@ -99,11 +95,7 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
         }}
         className="absolute inset-0 flex flex-col items-center justify-between py-6 px-4 max-w-5xl mx-auto z-10"
       >
-        {/* Top Breadcrumb */}
-        <div className="flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase">
-          <span className="text-[#94A3B8]">main /</span>
-          <span className="text-[#C0C0C0] font-bold">developer profile</span>
-        </div>
+
 
         {/* Primary Headline & Metadata Grid */}
         <div className="flex flex-col items-center text-center my-auto max-w-4xl w-full">

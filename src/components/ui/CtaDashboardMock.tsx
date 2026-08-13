@@ -1,0 +1,20 @@
+"use client";
+
+import React from "react";
+import ChatPanel from "@/components/ui/ChatPanel";
+import VelorahHeroPreview from "@/components/ui/VelorahHeroPreview";
+
+export default function CtaDashboardMock() {
+  return (
+    <div className="liquid-glass w-full max-w-[1100px] aspect-[3/4] sm:aspect-[16/10] lg:aspect-[16/9] rounded-2xl mx-auto overflow-hidden p-2 sm:p-3 shadow-2xl">
+      <div className="grid h-full grid-cols-1 sm:grid-cols-[minmax(220px,320px)_1fr] gap-2 sm:gap-3">
+        <div className="min-h-0 hidden sm:block">
+          <ChatPanel initialScroll="top" animateMessagesIn />
+        </div>
+        <div className="min-h-0">
+          <VelorahHeroPreview />
+        </div>
+      </div>
+    </div>
+  );
+}
