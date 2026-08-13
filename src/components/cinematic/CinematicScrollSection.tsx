@@ -14,8 +14,8 @@ interface CinematicScrollSectionProps {
   glowRgb?: string;     // Color code for ambient glow (e.g. "110, 26, 43")
   accentHex?: string;   // Color code for text accent (e.g. "#6E1A2B")
   bgHex?: string;       // Background base color (e.g. "#050505")
-  bgGradient?: string;  // CSS background gradient style string
   hideHeaderLine?: boolean; // Hides the top watermark line overlay
+  fullWidth?: boolean;      // Spans 100% full viewport width without side margins
   children: (progress: MotionValue<number>) => React.ReactNode;
 }
 
@@ -29,8 +29,8 @@ export default function CinematicScrollSection({
   glowRgb = "110, 26, 43",
   accentHex = "#6E1A2B",
   bgHex = "#050505",
-  bgGradient,
   hideHeaderLine = false,
+  fullWidth = false,
   children,
 }: CinematicScrollSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,7 +52,6 @@ export default function CinematicScrollSection({
 
   // Intro animations: instantly visible at scroll start, fades out from 0.25 to 0.35
   const introOpacity = useTransform(scrollYProgress, [0, 0.25, 0.35], [1, 1, 0]);
-  const introScale = useTransform(scrollYProgress, [0, 0.35], [1, 1.05]);
   const pointerEvents = useTransform(scrollYProgress, (p) => (p > 0.3 ? "none" : "auto") as any);
   const display = useTransform(scrollYProgress, (p) => (p > 0.38 ? "none" : "block") as any);
 
@@ -69,7 +68,6 @@ export default function CinematicScrollSection({
         setScrollRange(Math.max(0, cHeight - sHeight));
       }
     };
-    // Defer measurement slightly to let content render/measure accurately
     const timer = setTimeout(updateRange, 100);
     const ro = new ResizeObserver(updateRange);
     if (contentRef.current) ro.observe(contentRef.current);
@@ -89,16 +87,16 @@ export default function CinematicScrollSection({
         ref={containerRef}
         style={{ 
           height: travelHeight, 
-          background: bgGradient || `linear-gradient(to bottom, #050505 0%, ${bgHex} 50%, #050505 100%)` 
+          backgroundColor: bgHex 
         }}
         className="relative w-full"
       >
         {/* Pinned 100vh Viewport Stage */}
         <div 
           style={{ 
-            background: bgGradient || `radial-gradient(circle at center, rgba(${glowRgb}, 0.28) 0%, rgba(${glowRgb}, 0.06) 45%, ${bgHex} 100%)` 
+            backgroundColor: bgHex 
           }}
-          className="sticky top-0 w-full h-screen overflow-hidden flex flex-col justify-between py-6 px-4 sm:px-8 select-none"
+          className={`sticky top-0 w-full h-screen overflow-hidden flex flex-col justify-between select-none ${fullWidth ? "p-0" : "py-6 px-4 sm:px-8"}`}
         >
           {/* Subtle Top Header Line */}
           {!hideHeaderLine && (
@@ -119,23 +117,6 @@ export default function CinematicScrollSection({
               )}
             </motion.div>
           )}
-
-          {/* Section Specific Ambient Center Glow */}
-          <motion.div 
-            animate={{ 
-              opacity: [0.35, 0.65, 0.35],
-              scale: [1, 1.08, 1]
-            }}
-            transition={{ 
-              duration: 8, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            className="absolute inset-0 z-0 pointer-events-none"
-            style={{
-              background: `radial-gradient(circle at center, rgba(${glowRgb}, 0.25) 0%, transparent 70%)`
-            }}
-          />
 
           {/* Background Grid Overlay */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:24px_24px] z-0 pointer-events-none" />
@@ -158,7 +139,7 @@ export default function CinematicScrollSection({
           <motion.div 
             style={{ opacity: contentOpacity }}
             ref={stageRef} 
-            className={`relative z-10 w-full h-full max-w-[1600px] mx-auto ${autoPan ? "pt-12 overflow-visible" : "flex items-center justify-center"}`}
+            className={`relative z-10 w-full h-full ${fullWidth ? "max-w-none" : "max-w-[1600px] mx-auto"} ${autoPan ? "pt-12 overflow-visible" : "flex items-center justify-center"}`}
           >
             {autoPan ? (
               <motion.div ref={contentRef} style={{ y }} className="w-full pb-32">

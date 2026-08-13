@@ -36,6 +36,7 @@ import EditorialAboutSection from "@/components/cinematic/EditorialAboutSection"
 import EditorialSkillsSection from "@/components/cinematic/EditorialSkillsSection";
 import StickyProjectsShowcase from "@/components/cinematic/StickyProjectsShowcase";
 import AiExperimentsSection from "@/components/cinematic/AiExperimentsSection";
+import { CrowdCanvas } from "@/components/ui/crowd-canvas";
 
 // Locked Music Carousel & Player System
 import { useAudio } from "@/context/AudioContext";
@@ -103,7 +104,7 @@ function CardTimeline() {
             className="flex items-start gap-2.5 p-2 rounded-xl bg-black/40 border border-white/5"
           >
             <div className="p-1.5 rounded-lg bg-[#6E1A2B]/10 border border-[#6E1A2B]/20 shrink-0 mt-0.5">
-              <evt.icon className="w-3.5 h-3.5 text-[#8C2938]" />
+              <evt.icon className="w-3.5 h-3.5 text-[#8E2938]" />
             </div>
             <div className="flex flex-col min-w-0">
               <span className="text-[10px] font-bold text-white tracking-wide truncate">
@@ -140,7 +141,7 @@ function CardRagPipeline() {
           { name: "QUERY", icon: Search, status: "HYBRID" },
         ].map((step) => (
           <div key={step.name} className="flex flex-col items-center p-2 rounded-xl bg-black/60 border border-white/5 text-center">
-            <step.icon className="w-4 h-4 text-[#8C2938] mb-1" />
+            <step.icon className="w-4 h-4 text-[#8E2938] mb-1" />
             <span className="text-[9px] font-bold text-white tracking-wider">{step.name}</span>
             <span className="text-[7px] font-mono text-[#8A8A8A] mt-0.5">{step.status}</span>
           </div>
@@ -439,7 +440,7 @@ export default function MasterCinematicScrollPortfolio() {
             {/* Middle Content */}
             <div className="relative z-20 w-full px-6 sm:px-10 md:px-14 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 pb-24 sm:pb-28">
               <div className="flex flex-col items-start max-w-2xl lg:max-w-4xl z-20">
-                <span className="text-sm sm:text-base md:text-lg font-bold tracking-[0.25em] text-[#8C2938] uppercase mb-2">
+                <span className="text-sm sm:text-base md:text-lg font-bold tracking-[0.25em] text-[#8E2938] uppercase mb-2">
                   Hey, I&apos;m
                 </span>
                 <div className="w-full">
@@ -507,10 +508,9 @@ export default function MasterCinematicScrollPortfolio() {
         travelHeight="450vh" 
         watermarkText="A B O U T" 
         subtext="IDENTITY & ARCHITECTURE"
-        glowRgb="110, 26, 43"
-        accentHex="#6E1A2B"
-        bgHex="#0D0406"
-        bgGradient="radial-gradient(ellipse at 50% 40%, #1a0408 0%, #110205 30%, #0a0102 60%, #050505 85%, #020202 100%)"
+        glowRgb="200, 200, 200"
+        accentHex="#C0C0C0"
+        bgHex="#090A0C"
       >
         {(progress) => <EditorialAboutSection progress={progress} />}
       </CinematicScrollSection>
@@ -523,10 +523,9 @@ export default function MasterCinematicScrollPortfolio() {
         travelHeight="400vh" 
         watermarkText="tech-stack" 
         subtext="SYSTEMS & PIPELINES"
-        glowRgb="135, 18, 42"
-        accentHex="#87122A"
-        bgHex="#0C0305"
-        bgGradient="radial-gradient(ellipse at 50% 40%, #0d1015 0%, #080b0e 30%, #050708 60%, #030405 85%, #020202 100%)"
+        glowRgb="160, 174, 192"
+        accentHex="#94A3B8"
+        bgHex="#08090B"
       >
         {(progress) => <EditorialSkillsSection progress={progress} />}
       </CinematicScrollSection>
@@ -539,10 +538,9 @@ export default function MasterCinematicScrollPortfolio() {
         travelHeight="450vh" 
         watermarkText="P R O J E C T S" 
         subtext="CASE STUDIES & PRODUCTS"
-        glowRgb="155, 28, 48"
-        accentHex="#9B1C30"
-        bgHex="#0E0A0C"
-        bgGradient="radial-gradient(ellipse at 50% 40%, #130f08 0%, #0d0a05 30%, #080603 60%, #050503 85%, #020201 100%)"
+        glowRgb="226, 232, 240"
+        accentHex="#E2E8F0"
+        bgHex="#050505"
       >
         {(progress) => <StickyProjectsShowcase progress={progress} />}
       </CinematicScrollSection>
@@ -555,10 +553,9 @@ export default function MasterCinematicScrollPortfolio() {
         travelHeight="400vh" 
         watermarkText="E X P E R I M E N T S" 
         subtext="RESEARCH & PROTOTYPES"
-        glowRgb="150, 40, 32"
-        accentHex="#962820"
-        bgHex="#0D0504"
-        bgGradient="radial-gradient(ellipse at 50% 40%, #1a0a04 0%, #110603 30%, #090402 60%, #050302 85%, #020101 100%)"
+        glowRgb="148, 163, 184"
+        accentHex="#CBD5E1"
+        bgHex="#060709"
       >
         {() => <AiExperimentsSection />}
       </CinematicScrollSection>
@@ -570,36 +567,28 @@ export default function MasterCinematicScrollPortfolio() {
         autoPan={false} 
         travelHeight="400vh" 
         watermarkText="music" 
-        glowRgb="181, 47, 67"
-        accentHex="#B52F43"
-        bgHex="#0D0709"
-        bgGradient="radial-gradient(ellipse at 50% 45%, #0D0709 0%, #0C0608 25%, rgba(61,16,24,0.15) 45%, #0B0507 70%, #090506 100%)"
+        glowRgb="200, 210, 220"
+        accentHex="#E2E8F0"
+        bgHex="#060607"
         hideHeaderLine={true}
+        fullWidth={true}
       >
         {() => (
           <div className="relative w-full h-screen overflow-hidden">
 
             {/* ── Background layers ── */}
-            {/* 1. Large subtle MUSIC watermark */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-              <span className="font-sans text-[28vw] font-black tracking-[0.2em] text-[#B52F43]/[0.025] select-none uppercase leading-none">
-                MUSIC
-              </span>
-            </div>
+            {/* Animated Crowd Canvas Background */}
+            <CrowdCanvas src="/images/peeps/all-peeps.png" rows={15} cols={7} className="absolute bottom-0 h-full w-full opacity-25 pointer-events-none z-0 filter invert contrast-200" />
+
+
 
             {/* 2. Subtle grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:32px_32px] z-0 pointer-events-none opacity-30" />
 
-            {/* 3. Radial crimson spotlight */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(181,47,67,0.10)_0%,transparent_65%)] z-0 pointer-events-none" />
-
-            {/* 4. Edge vignette */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(9,5,6,0.85)_100%)] z-0 pointer-events-none" />
-
             {/* ── Chapter label — absolute top-left ── */}
             <div className="absolute top-6 left-8 sm:left-12 flex flex-col items-start z-20 select-none">
-              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.35em] text-[#B52F43]/60">05</span>
-              <span className="font-sans text-lg sm:text-xl font-black tracking-widest text-[#B52F43] leading-none mt-1">MUSIC</span>
+              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.35em] text-[#CBD5E1]/60">05</span>
+              <span className="font-sans text-lg sm:text-xl font-black tracking-widest text-[#E2E8F0] leading-none mt-1">MUSIC</span>
             </div>
 
             {/* ── Carousel — full canvas, centered ── */}
@@ -641,28 +630,27 @@ export default function MasterCinematicScrollPortfolio() {
         travelHeight="350vh" 
         watermarkText="C O N T A C T" 
         subtext="CONNECT & BUILD"
-        glowRgb="110, 26, 43"
-        accentHex="#6E1A2B"
-        bgHex="#09080A"
-        bgGradient="radial-gradient(ellipse at 50% 40%, #0e1018 0%, #090b12 30%, #06070d 60%, #040508 85%, #020203 100%)"
+        glowRgb="180, 180, 180"
+        accentHex="#CBD5E1"
+        bgHex="#050505"
       >
         {() => (
           <div className="flex flex-col gap-8 max-w-[1400px] mx-auto px-4 w-full h-full justify-center">
             <div className="flex items-center gap-1.5 font-mono text-sm tracking-wider uppercase mb-2">
-              <span className="text-[#8A8A8A]">main /</span>
-              <span className="text-[#8C2938] font-bold">get in touch</span>
+              <span className="text-[#CBD5E1]">main /</span>
+              <span className="text-[#CBD5E1] font-bold">get in touch</span>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <GlareCard className="p-8 flex flex-col justify-between min-h-[360px] bg-black/90">
+              <GlareCard className="p-8 flex flex-col justify-between min-h-[360px] bg-[#14161B] text-white border border-white/20 shadow-2xl shadow-black/60">
                 <div className="flex flex-col gap-4">
                   <h3 className="text-2xl font-black text-white">Direct Transmission</h3>
-                  <p className="text-xs text-[#A1A1AA] leading-relaxed">
+                  <p className="text-xs text-[#CBD5E1] leading-relaxed">
                     Available for software engineering roles, backend architecture, and AI pipeline collaborations.
                   </p>
 
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-black/60 border border-white/10">
-                    <Mail className="w-4 h-4 text-[#8C2938]" />
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/10 border border-white/20">
+                    <Mail className="w-4 h-4 text-[#8E2938]" />
                     <span className="text-xs font-mono text-white select-all">
                       jayshankartavanoji2020@gmail.com
                     </span>
@@ -675,12 +663,12 @@ export default function MasterCinematicScrollPortfolio() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 pt-6 border-t border-white/10">
+                <div className="flex items-center gap-4 pt-6 border-t border-white/15">
                   <a
                     href="https://github.com/Jaytavanoji"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-xs font-mono text-[#A1A1AA] hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-xs font-mono text-[#CBD5E1] hover:text-white transition-colors"
                   >
                     <Github className="w-4 h-4" />
                     <span>GitHub</span>
@@ -689,7 +677,7 @@ export default function MasterCinematicScrollPortfolio() {
                     href="https://linkedin.com/in/jaytavanoji"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-xs font-mono text-[#A1A1AA] hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-xs font-mono text-[#CBD5E1] hover:text-white transition-colors"
                   >
                     <Linkedin className="w-4 h-4" />
                     <span>LinkedIn</span>
@@ -697,47 +685,47 @@ export default function MasterCinematicScrollPortfolio() {
                 </div>
               </GlareCard>
 
-              <form onSubmit={handleContactSubmit} className="flex flex-col gap-4 p-8 rounded-2xl bg-black/90 border border-white/10">
+              <form onSubmit={handleContactSubmit} className="flex flex-col gap-4 p-8 rounded-2xl bg-[#14161B] border border-white/20 shadow-2xl shadow-black/60">
                 <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-mono text-[#8A8A8A] uppercase">Name</label>
+                  <label className="text-[10px] font-mono text-[#CBD5E1] uppercase">Name</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Your Name"
-                    className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#8C2938] transition-all"
+                    className="px-4 py-2.5 rounded-xl bg-black/5 border border-white/15 text-white text-xs focus:outline-none focus:border-[#94A3B8] transition-all placeholder:text-[#CBD5E1]/50"
                   />
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-mono text-[#8A8A8A] uppercase">Email</label>
+                  <label className="text-[10px] font-mono text-[#CBD5E1] uppercase">Email</label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="your.email@domain.com"
-                    className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#8C2938] transition-all"
+                    className="px-4 py-2.5 rounded-xl bg-black/5 border border-white/15 text-white text-xs focus:outline-none focus:border-[#94A3B8] transition-all placeholder:text-[#CBD5E1]/50"
                   />
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-mono text-[#8A8A8A] uppercase">Message</label>
+                  <label className="text-[10px] font-mono text-[#CBD5E1] uppercase">Message</label>
                   <textarea
                     required
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Write your message..."
-                    className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#8C2938] transition-all resize-none"
+                    className="px-4 py-2.5 rounded-xl bg-black/5 border border-white/15 text-white text-xs focus:outline-none focus:border-[#94A3B8] transition-all placeholder:text-[#CBD5E1]/50 resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#8C2938] hover:bg-[#A3313F] text-[#F2F0EF] text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 mt-2"
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#334155] hover:bg-[#475569] border border-white/20 text-white shadow-lg text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 mt-2"
                 >
                   {isSubmitting ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -763,11 +751,11 @@ export default function MasterCinematicScrollPortfolio() {
             </div>
 
             {/* Thorough Website Ending Copyright & Footer Line */}
-            <div className="w-full pt-12 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-4 font-mono text-xs text-[#8A8A8A]">
+            <div className="w-full pt-12 mt-12 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-4 font-mono text-xs text-[#CBD5E1]">
               <div>
                 <span className="text-white font-bold">Jay Shankar Tavanoji</span> · Creative Engineering Portfolio
               </div>
-              <div className="text-[11px] text-[#8C2938]">
+              <div className="text-[11px] text-[#CBD5E1]">
                 © {new Date().getFullYear()} All Rights Reserved · Built with Next.js 14 & Framer Motion
               </div>
             </div>

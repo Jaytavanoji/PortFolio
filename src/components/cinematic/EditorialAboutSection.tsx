@@ -49,7 +49,7 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
   const bridgeY = useTransform(activeProgress, [0.95, 1.0], [30, 0]);
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center select-none overflow-hidden text-white font-sans">
+    <div className="relative w-full h-full flex items-center justify-center select-none overflow-hidden text-[#F8FAFC] font-sans">
       
       {/* ── SCENE 01 — INTRODUCTION (0.00 -> 0.33) ── */}
       <motion.div
@@ -64,24 +64,24 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
       >
         {/* Top Breadcrumb */}
         <div className="flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase">
-          <span className="text-[#8A8A8A]">main /</span>
-          <span className="text-[#8F2635] font-bold">about</span>
+          <span className="text-[#94A3B8]">main /</span>
+          <span className="text-[#C0C0C0] font-bold">about</span>
         </div>
 
         {/* Focal Introduction Statement */}
         <div className="flex flex-col items-center text-center my-auto max-w-4xl px-2">
-          <h2 className="text-[clamp(1.2rem,2.8vw,2.5rem)] font-extrabold text-white tracking-tight leading-tight uppercase max-w-3xl">
+          <h2 className="text-[clamp(1.2rem,2.8vw,2.5rem)] font-extrabold text-[#F8FAFC] tracking-tight leading-tight uppercase max-w-3xl">
             &ldquo;I build practical software, learn continuously, and enjoy understanding how systems work.&rdquo;
           </h2>
         </div>
 
         {/* Supporting DSA Copy */}
         <div className="w-full max-w-2xl text-center px-4">
-          <p className="text-xs sm:text-sm font-light text-[#A1A1AA] leading-relaxed">
+          <p className="text-xs sm:text-sm font-light text-[#94A3B8] leading-relaxed">
             I&apos;m an aspiring software developer focused on building practical solutions and continuously improving my problem-solving skills through Data Structures and Algorithms.
           </p>
-          <div className="flex items-center justify-center gap-2 mt-3 font-mono text-[10px] text-[#8F2635]">
-            <Plus className="w-3 h-3 text-[#8F2635]" />
+          <div className="flex items-center justify-center gap-2 mt-3 font-mono text-[10px] text-[#C0C0C0]">
+            <Plus className="w-3 h-3 text-[#C0C0C0]" />
             <span>Problem-Solving Fundamentals · DSA Exploration</span>
           </div>
         </div>
@@ -101,53 +101,53 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
       >
         {/* Top Breadcrumb */}
         <div className="flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase">
-          <span className="text-[#8A8A8A]">main /</span>
-          <span className="text-[#8F2635] font-bold">developer profile</span>
+          <span className="text-[#94A3B8]">main /</span>
+          <span className="text-[#C0C0C0] font-bold">developer profile</span>
         </div>
 
         {/* Primary Headline & Metadata Grid */}
         <div className="flex flex-col items-center text-center my-auto max-w-4xl w-full">
           
-          <h2 className="text-[clamp(2.2rem,5.5vw,4.8rem)] font-black tracking-tighter uppercase text-white leading-none mb-4">
+          <h2 className="text-[clamp(2.2rem,5.5vw,4.8rem)] font-black tracking-tighter uppercase text-[#F8FAFC] leading-none mb-4">
             ASPIRING SOFTWARE DEVELOPER
           </h2>
 
           {/* Structured Visual Metadata Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full max-w-2xl my-3 font-mono text-[11px]">
-            <div className="p-2.5 rounded-xl bg-black/80 border border-white/15 flex items-center justify-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8F2635]" />
-              <span className="text-white font-bold tracking-wider">BACKEND</span>
+            <div className="p-2.5 rounded-xl bg-[#121418] border border-white/15 flex items-center justify-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E2E8F0]" />
+              <span className="text-[#F8FAFC] font-bold tracking-wider">BACKEND</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-black/80 border border-white/15 flex items-center justify-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8F2635]" />
-              <span className="text-white font-bold tracking-wider">AI / AUTOMATION</span>
+            <div className="p-2.5 rounded-xl bg-[#121418] border border-white/15 flex items-center justify-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E2E8F0]" />
+              <span className="text-[#F8FAFC] font-bold tracking-wider">AI / AUTOMATION</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-black/80 border border-white/15 flex items-center justify-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8F2635]" />
-              <span className="text-white font-bold tracking-wider">DSA</span>
+            <div className="p-2.5 rounded-xl bg-[#121418] border border-white/15 flex items-center justify-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E2E8F0]" />
+              <span className="text-[#F8FAFC] font-bold tracking-wider">DSA</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-black/80 border border-white/15 flex items-center justify-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8F2635]" />
-              <span className="text-white font-bold tracking-wider">SYSTEMS</span>
+            <div className="p-2.5 rounded-xl bg-[#121418] border border-white/15 flex items-center justify-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E2E8F0]" />
+              <span className="text-[#F8FAFC] font-bold tracking-wider">SYSTEMS</span>
             </div>
           </div>
 
           {/* Supporting Technical Narrative */}
-          <p className="text-xs sm:text-sm font-light text-[#A1A1AA] leading-relaxed max-w-2xl my-3 px-2">
+          <p className="text-xs sm:text-sm font-light text-[#94A3B8] leading-relaxed max-w-2xl my-3 px-2">
             Recently, I&apos;ve expanded beyond Python by working with Java (OOP) and Spring Boot, where I&apos;ve built backend systems and gained hands-on experience in structuring scalable applications. What sets me apart is my ability to adapt quickly and build using new technologies, along with my interest in both software and Embedded Systems, helping me understand how code interacts beyond the screen.
           </p>
 
           {/* Micro-tech Annotations */}
           <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-2xl mt-2 font-mono text-[10px]">
             {["Python", "Java", "Spring Boot", "FastAPI", "REST APIs", "PostgreSQL", "MongoDB", "RAG", "API Integration"].map((tech) => (
-              <span key={tech} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/80">
+              <span key={tech} className="px-2.5 py-1 rounded-md bg-white/10 border border-white/15 text-[#F8FAFC]/80">
                 {tech}
               </span>
             ))}
           </div>
         </div>
 
-        <div className="font-mono text-[10px] text-[#8A8A8A] tracking-widest uppercase">
+        <div className="font-mono text-[10px] text-[#94A3B8] tracking-widest uppercase">
           SCROLL TO EXPLORE ROADMAP & JOURNEY
         </div>
       </motion.div>
@@ -166,10 +166,10 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
         {/* Top Header */}
         <div className="flex flex-col items-center gap-1 text-center">
           <div className="flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase mb-1">
-            <span className="text-[#8A8A8A]">main /</span>
-            <span className="text-[#8F2635] font-bold">roadmap</span>
+            <span className="text-[#94A3B8]">main /</span>
+            <span className="text-[#C0C0C0] font-bold">roadmap</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-black text-[#F8FAFC] uppercase tracking-tight">
             ENGINEERING JOURNEY
           </h2>
         </div>
@@ -182,7 +182,7 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
             <motion.path
               d="M 200,80 L 600,80 L 600,260 L 200,260"
               fill="none"
-              stroke="#8F2635"
+              stroke="#C0C0C0"
               strokeWidth="1.5"
               strokeDasharray="4 4"
               style={{ pathLength: timelinePathLength, opacity: 0.4 }}
@@ -190,45 +190,45 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
           </svg>
 
           {/* Stage 01 */}
-          <motion.div style={{ opacity: stg1Opacity }} className="p-4 rounded-xl bg-black/90 border border-white/15 backdrop-blur-md relative z-10">
+          <motion.div style={{ opacity: stg1Opacity }} className="p-4 rounded-xl bg-[#121418] border border-white/15 backdrop-blur-md relative z-10">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-mono text-base font-bold italic text-[#8F2635]">01 — FOUNDATION</span>
+              <span className="font-mono text-base font-bold italic text-[#C0C0C0]">01 — FOUNDATION</span>
             </div>
-            <p className="text-xs text-white/90 font-medium">Python · Data Structures & Algorithms · Problem Solving</p>
-            <p className="text-[10px] text-[#A1A1AA] mt-1.5 leading-relaxed">
+            <p className="text-xs text-[#F8FAFC]/90 font-medium">Python · Data Structures & Algorithms · Problem Solving</p>
+            <p className="text-[10px] text-[#94A3B8] mt-1.5 leading-relaxed">
               Strengthening core algorithmic thinking, dynamic programming, space-time efficiency, and object-oriented programming foundations.
             </p>
           </motion.div>
 
           {/* Stage 02 */}
-          <motion.div style={{ opacity: stg2Opacity }} className="p-4 rounded-xl bg-black/90 border border-[#8F2635]/40 backdrop-blur-md relative z-10">
+          <motion.div style={{ opacity: stg2Opacity }} className="p-4 rounded-xl bg-[#121418] border border-[#C0C0C0]/50 backdrop-blur-md relative z-10">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-mono text-base font-bold italic text-[#8F2635]">02 — BACKEND</span>
+              <span className="font-mono text-base font-bold italic text-[#C0C0C0]">02 — BACKEND</span>
             </div>
-            <p className="text-xs text-white/90 font-medium">Java / OOP · Spring Boot · FastAPI · REST APIs</p>
-            <p className="text-[10px] text-[#A1A1AA] mt-1.5 leading-relaxed">
+            <p className="text-xs text-[#F8FAFC]/90 font-medium">Java / OOP · Spring Boot · FastAPI · REST APIs</p>
+            <p className="text-[10px] text-[#94A3B8] mt-1.5 leading-relaxed">
               Building robust backend architectures, dependency injection, RESTful controllers, asynchronous request routing, and clean code principles.
             </p>
           </motion.div>
 
           {/* Stage 03 */}
-          <motion.div style={{ opacity: stg3Opacity }} className="p-4 rounded-xl bg-black/90 border border-white/15 backdrop-blur-md relative z-10">
+          <motion.div style={{ opacity: stg3Opacity }} className="p-4 rounded-xl bg-[#121418] border border-white/15 backdrop-blur-md relative z-10">
             <div className="flex items-center justify-between mb-1">
-              <span className="font-mono text-base font-bold italic text-[#8F2635]">03 — SYSTEMS</span>
+              <span className="font-mono text-base font-bold italic text-[#C0C0C0]">03 — SYSTEMS</span>
             </div>
-            <p className="text-xs text-white/90 font-medium">Databases · API Integration · Authentication · Architecture</p>
-            <p className="text-[10px] text-[#A1A1AA] mt-1.5 leading-relaxed">
+            <p className="text-xs text-[#F8FAFC]/90 font-medium">Databases · API Integration · Authentication · Architecture</p>
+            <p className="text-[10px] text-[#94A3B8] mt-1.5 leading-relaxed">
               Designing relational & NoSQL schemas (PostgreSQL, MongoDB), connection pooling, JWT authentication, and scalable API gateways.
             </p>
           </motion.div>
 
           {/* Stage 04 */}
-          <motion.div style={{ opacity: stg4Opacity }} className="p-4 rounded-xl bg-black/90 border border-white/15 backdrop-blur-md relative z-10">
+          <motion.div style={{ opacity: stg4Opacity }} className="p-4 rounded-xl bg-[#121418] border border-white/15 backdrop-blur-md relative z-10">
             <div className="flex items-center justify-between mb-2">
-              <span className="font-mono text-base font-bold italic text-[#8F2635]">04 — EXPLORATION</span>
+              <span className="font-mono text-base font-bold italic text-[#C0C0C0]">04 — EXPLORATION</span>
             </div>
-            <p className="text-xs text-white/90 font-medium">AI Workflows · RAG · Embedded Systems · Emerging Tech</p>
-            <p className="text-[10px] text-[#A1A1AA] mt-1.5 leading-relaxed">
+            <p className="text-xs text-[#F8FAFC]/90 font-medium">AI Workflows · RAG · Embedded Systems · Emerging Tech</p>
+            <p className="text-[10px] text-[#94A3B8] mt-1.5 leading-relaxed">
               Exploring vector retrieval pipelines, Qdrant indexing, LLM orchestration, and hardware-software interaction beyond the screen.
             </p>
           </motion.div>
@@ -238,23 +238,15 @@ export default function EditorialAboutSection({ progress }: EditorialAboutSectio
         {/* Final Opportunity Statement */}
         <motion.div
           style={{ opacity: finalStatementOpacity, y: finalStatementY }}
-          className="w-full max-w-2xl text-center px-2 py-2 rounded-xl bg-[#8F2635]/10 border border-[#8F2635]/30 my-1"
+          className="w-full max-w-2xl text-center px-2 py-2 rounded-xl bg-white/5 border border-white/20 my-1"
         >
-          <p className="text-xs font-mono text-white leading-relaxed">
+          <p className="text-xs font-mono text-[#F8FAFC] leading-relaxed">
             &ldquo;Currently building, learning, and looking for opportunities to apply my skills, learn from experienced developers, and grow in a challenging environment.&rdquo;
           </p>
         </motion.div>
       </motion.div>
 
-      {/* ── ENVIRONMENTAL TYPOGRAPHY BRIDGE INTO SKILLS (0.95 -> 1.00) ── */}
-      <motion.div
-        style={{ opacity: bridgeOpacity, y: bridgeY }}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
-      >
-        <span className="text-[clamp(4rem,15vw,16rem)] font-black tracking-tighter uppercase text-white/10 select-none">
-          SKILLS
-        </span>
-      </motion.div>
+
 
     </div>
   );

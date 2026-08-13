@@ -79,26 +79,26 @@ export default function MusicControls({
       : currentTime;
 
   return (
-    <div className="w-full max-w-sm flex flex-col items-center gap-4 px-4 select-none">
+    <div className="w-full max-w-md mx-auto flex flex-col items-center justify-center gap-4 px-4 select-none text-center">
       
-      {/* ── 1. ACTIVE TRACK METADATA ── */}
-      <div className="flex flex-col items-center text-center gap-1.5">
+      {/* ── 1. ACTIVE TRACK METADATA — PLAIN WHITE ── */}
+      <div className="flex flex-col items-center text-center gap-1.5 w-full">
         {/* Title */}
-        <h2 className="font-sans text-xl sm:text-2xl font-black text-white tracking-tighter uppercase leading-none truncate max-w-xs sm:max-w-md">
+        <h2 className="font-sans text-xl sm:text-2xl font-black text-white tracking-tight uppercase leading-none truncate max-w-xs sm:max-w-md">
           {currentTrack.title}
         </h2>
         {/* Artist & Metadata */}
-        <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] text-[#8A8A8A] tracking-[0.25em] uppercase">
-          <span>{currentTrack.artist}</span>
-          <span className="text-[#B52F43]/60">·</span>
-          <span>{currentTrack.genre}</span>
+        <div className="flex items-center justify-center gap-1.5 font-mono text-[9px] sm:text-[10px] text-white/80 tracking-[0.25em] uppercase">
+          <span className="text-white">{currentTrack.artist}</span>
+          <span className="text-white/60">·</span>
+          <span className="text-white/80">{currentTrack.genre}</span>
         </div>
       </div>
 
-      {/* ── 2. REFINED TIMELINE & SEEK BAR ── */}
-      <div className="w-full flex items-center gap-3">
+      {/* ── 2. PERFECTLY CENTERED TIMELINE & SEEK BAR — PLAIN WHITE ── */}
+      <div className="w-full flex items-center justify-center gap-3">
         {/* Current Time */}
-        <span className="font-mono text-[9px] text-[#666] select-none min-w-[32px] text-right">
+        <span className="font-mono text-[9px] text-white select-none min-w-[36px] text-right">
           {formatTime(displayCurrentTime)}
         </span>
 
@@ -114,49 +114,49 @@ export default function MusicControls({
           aria-valuemax={Math.round(duration) || 0}
         >
           {/* Background Track */}
-          <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden transition-all group-hover:h-[4px]">
+          <div className="w-full h-[3px] bg-white/20 rounded-full overflow-hidden transition-all group-hover:h-[4px]">
             <div
-              className="h-full bg-[#B52F43] rounded-full transition-[width] duration-75 ease-linear"
+              className="h-full bg-white rounded-full transition-[width] duration-75 ease-linear"
               style={{ width: `${Math.min(100, Math.max(0, displayProgress))}%` }}
             />
           </div>
 
           {/* Scrub Handle Thumb */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full border border-[#B52F43] shadow-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-white rounded-full border border-white shadow-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
             style={{ left: `${Math.min(100, Math.max(0, displayProgress))}%` }}
           />
         </div>
 
         {/* Total Duration */}
-        <span className="font-mono text-[9px] text-[#666] select-none min-w-[32px] text-left">
+        <span className="font-mono text-[9px] text-white select-none min-w-[36px] text-left">
           {formatTime(duration)}
         </span>
       </div>
 
-      {/* ── 3. EDITORIAL PLAYBACK CONTROLS ── */}
-      <div className="flex items-center gap-6 pt-1">
+      {/* ── 3. CENTERED PLAYBACK CONTROLS — PLAIN WHITE ── */}
+      <div className="flex items-center justify-center gap-6 pt-1">
         {/* Previous Button */}
         <button
           type="button"
           onClick={onPrev}
           aria-label="Previous song"
-          className="p-2 text-white/40 hover:text-white transition-colors active:scale-90"
+          className="p-2 text-white/80 hover:text-white transition-colors active:scale-90"
         >
-          <SkipBack className="w-4 h-4 fill-current" />
+          <SkipBack className="w-4 h-4 fill-current text-white" />
         </button>
 
-        {/* Play/Pause Button (Editorial Wireframe Design) */}
+        {/* Play/Pause Button */}
         <button
           type="button"
           onClick={onTogglePlay}
           aria-label={isPlaying ? "Pause" : "Play"}
-          className="relative p-3.5 rounded-full border border-white/15 bg-white/[0.03] text-white shadow-[0_0_15px_rgba(255,255,255,0.02)] transition-all duration-300 hover:scale-105 active:scale-95 hover:border-[#B52F43]/60 hover:text-[#B52F43] hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]"
+          className="relative p-3.5 rounded-full border border-white/40 bg-white/10 text-white shadow-md transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/25 hover:border-white"
         >
           {isPlaying ? (
-            <Pause className="w-4 h-4 fill-current" />
+            <Pause className="w-4 h-4 fill-current text-white" />
           ) : (
-            <Play className="w-4 h-4 fill-current translate-x-0.5" />
+            <Play className="w-4 h-4 fill-current text-white translate-x-0.5" />
           )}
         </button>
 
@@ -165,11 +165,12 @@ export default function MusicControls({
           type="button"
           onClick={onNext}
           aria-label="Next song"
-          className="p-2 text-white/40 hover:text-white transition-colors active:scale-90"
+          className="p-2 text-white/80 hover:text-white transition-colors active:scale-90"
         >
-          <SkipForward className="w-4 h-4 fill-current" />
+          <SkipForward className="w-4 h-4 fill-current text-white" />
         </button>
       </div>
+
     </div>
   );
 }
