@@ -56,7 +56,7 @@ export async function POST(req: Request) {
       html: `
         <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #09090b; color: #f5f5f5; padding: 32px; border-radius: 16px; max-width: 600px; margin: 0 auto; border: 1px solid #27272a;">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-            <h2 style="color: #ff4d1f; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
+            <h2 style="color: #6E1A2B; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
               NEW INQUIRY RECEIVED
             </h2>
           </div>
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
             <strong style="color: #ffffff;">Sender Name:</strong> ${name}
           </p>
           <p style="margin: 10px 0; font-size: 14px; color: #a1a1aa;">
-            <strong style="color: #ffffff;">Sender Email:</strong> <a href="mailto:${email}" style="color: #ff4d1f; text-decoration: none; font-weight: 600;">${email}</a>
+            <strong style="color: #ffffff;">Sender Email:</strong> <a href="mailto:${email}" style="color: #6E1A2B; text-decoration: none; font-weight: 600;">${email}</a>
           </p>
           <p style="margin: 10px 0; font-size: 14px; color: #a1a1aa;">
             <strong style="color: #ffffff;">Subject:</strong> ${cleanSubject}
@@ -94,7 +94,7 @@ ${message}
       html: `
         <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #09090b; color: #f5f5f5; padding: 32px; border-radius: 16px; max-width: 600px; margin: 0 auto; border: 1px solid #27272a;">
           <div style="margin-bottom: 24px;">
-            <span style="color: #ff4d1f; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">
+            <span style="color: #6E1A2B; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">
               MESSAGE CONFIRMATION
             </span>
             <h2 style="color: #ffffff; margin: 8px 0 0 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">

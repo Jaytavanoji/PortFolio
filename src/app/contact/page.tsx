@@ -37,7 +37,7 @@ interface SmtpWidgetProps {
 
 function SmtpWidget({ smtpStep }: SmtpWidgetProps) {
   const steps = [
-    { id: "idle", label: "AWAITING MESSAGE", color: "text-[#FF4D1F]" },
+    { id: "idle", label: "AWAITING MESSAGE", color: "text-[#6E1A2B]" },
     { id: "handshake", label: "SMTP HANDSHAKE", color: "text-amber-400" },
     { id: "transmit", label: "TRANSMITTING DATA", color: "text-blue-400" },
     { id: "delivered", label: "RECEIPT CONFIRMED", color: "text-emerald-400" },
@@ -69,7 +69,7 @@ function SmtpWidget({ smtpStep }: SmtpWidgetProps) {
         <motion.path
           d="M 45 70 L 120 70"
           fill="none"
-          stroke="#FF4D1F"
+          stroke="#6E1A2B"
           strokeWidth="1.5"
           animate={{
             pathLength: smtpStep === "handshake" || smtpStep === "transmit" || smtpStep === "delivered" ? 1 : 0,
@@ -79,7 +79,7 @@ function SmtpWidget({ smtpStep }: SmtpWidgetProps) {
         <motion.path
           d="M 120 70 L 195 70"
           fill="none"
-          stroke="#FF4D1F"
+          stroke="#6E1A2B"
           strokeWidth="1.5"
           animate={{
             pathLength: smtpStep === "transmit" || smtpStep === "delivered" ? 1 : 0,
@@ -177,7 +177,7 @@ function HeartbeatWidget() {
           LIVE LOCATION
         </span>
         <span className="text-sm font-bold text-white flex items-center gap-1.5 mt-0.5">
-          <MapPin className="w-4 h-4 text-[#FF4D1F]" />
+          <MapPin className="w-4 h-4 text-[#6E1A2B]" />
           Pune, Maharashtra, India
         </span>
       </div>
@@ -344,7 +344,7 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder="Your Name"
-                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#FF4D1F] transition-all"
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#6E1A2B] transition-all"
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
@@ -357,7 +357,7 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="your.email@example.com"
-                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#FF4D1F] transition-all"
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#6E1A2B] transition-all"
                         />
                       </div>
                     </div>
@@ -372,7 +372,7 @@ export default function ContactPage() {
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         placeholder="Inquiry / Partnership Request"
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#FF4D1F] transition-all"
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#6E1A2B] transition-all"
                       />
                     </div>
 

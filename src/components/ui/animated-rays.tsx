@@ -29,7 +29,7 @@ export function AnimatedRays({
                 {/* Diffused organic ambient light spheres */}
                 <div className="absolute top-[-10%] right-[-5%] w-[65vw] h-[65vh] bg-[radial-gradient(circle_at_center,rgba(190,28,42,0.22),transparent_65%)] blur-[120px] pointer-events-none animate-pulse duration-[8000ms]" />
                 <div className="absolute bottom-[-10%] left-[-5%] w-[60vw] h-[60vh] bg-[radial-gradient(circle_at_center,rgba(65,18,75,0.18),transparent_70%)] blur-[130px] pointer-events-none" />
-                <div className="absolute top-[30%] left-[20%] w-[50vw] h-[50vh] bg-[radial-gradient(circle_at_center,rgba(255,77,31,0.08),transparent_60%)] blur-[140px] pointer-events-none" />
+                <div className="absolute top-[30%] left-[20%] w-[50vw] h-[50vh] bg-[radial-gradient(circle_at_center,rgba(110,26,43,0.08),transparent_60%)] blur-[140px] pointer-events-none" />
                 <div className="absolute bottom-[20%] right-[15%] w-[45vw] h-[45vh] bg-[radial-gradient(circle_at_center,rgba(14,32,54,0.2),transparent_65%)] blur-[120px] pointer-events-none" />
             </div>
 

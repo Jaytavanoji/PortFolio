@@ -61,7 +61,7 @@ function LifeDashboardWidget() {
           <span className="text-[7.5px] font-mono text-[#8A8A8A] uppercase tracking-wider">
             Active Nodes
           </span>
-          <span className="text-sm font-bold font-mono text-[#FF4D1F] mt-1">5 / 5</span>
+          <span className="text-sm font-bold font-mono text-[#6E1A2B] mt-1">5 / 5</span>
         </div>
       </div>
 
@@ -71,7 +71,7 @@ function LifeDashboardWidget() {
           <span className="text-emerald-400">Idle (Awaiting Task)</span>
         </div>
         <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden relative shadow-inner">
-          <div className="absolute left-0 top-0 bottom-0 rounded-full bg-[#FF4D1F] w-[88%]" />
+          <div className="absolute left-0 top-0 bottom-0 rounded-full bg-[#6E1A2B] w-[88%]" />
         </div>
       </div>
     </div>
@@ -103,7 +103,7 @@ function RegiNovaWidget() {
   return (
     <div className="w-full h-full flex flex-col justify-between p-3 select-none">
       <div className="flex items-center gap-2 bg-black/60 border border-white/5 rounded-xl px-2.5 py-1.5">
-        <Search className="w-3.5 h-3.5 text-[#FF4D1F]" />
+        <Search className="w-3.5 h-3.5 text-[#6E1A2B]" />
         <span className="text-[10px] font-mono text-white/80 truncate flex-1">{active.term}</span>
       </div>
 
@@ -178,7 +178,7 @@ function CardCvPipeline() {
         <motion.path
           d="M 45 80 L 120 80"
           fill="none"
-          stroke="#FF4D1F"
+          stroke="#6E1A2B"
           strokeWidth="1.5"
           animate={{ pathLength: activeStep >= 1 ? 1 : 0 }}
           transition={{ duration: 0.6 }}
@@ -186,7 +186,7 @@ function CardCvPipeline() {
         <motion.path
           d="M 120 80 L 195 80"
           fill="none"
-          stroke="#FF4D1F"
+          stroke="#6E1A2B"
           strokeWidth="1.5"
           animate={{ pathLength: activeStep >= 2 ? 1 : 0 }}
           transition={{ duration: 0.6 }}
@@ -194,7 +194,7 @@ function CardCvPipeline() {
         <motion.path
           d="M 195 80 L 270 80"
           fill="none"
-          stroke="#FF4D1F"
+          stroke="#6E1A2B"
           strokeWidth="1.5"
           animate={{ pathLength: activeStep >= 3 ? 1 : 0 }}
           transition={{ duration: 0.6 }}
@@ -216,7 +216,7 @@ function CardCvPipeline() {
                   className={cn(
                     "w-8 h-8 rounded-lg border flex items-center justify-center transition-all duration-500",
                     isActive
-                      ? "bg-[#FF4D1F] border-[#FF4D1F] text-white shadow-[0_0_15px_rgba(255,77,31,0.4)]"
+                      ? "bg-[#6E1A2B] border-[#6E1A2B] text-white shadow-[0_0_15px_rgba(110,26,43,0.4)]"
                       : "bg-black/60 border-white/10 text-[#8A8A8A]"
                   )}
                 >
@@ -411,7 +411,7 @@ export default function ProjectsPage() {
               <div className="grid grid-cols-2 gap-2 flex-1">
                 <div className="flex flex-col p-2.5 rounded-xl bg-black/50 border border-white/5">
                   <span className="text-[7px] font-mono text-[#8A8A8A]">THREATS BLOCKED</span>
-                  <span className="text-xl font-mono font-bold text-[#FF4D1F] mt-0.5">1,842</span>
+                  <span className="text-xl font-mono font-bold text-[#6E1A2B] mt-0.5">1,842</span>
                   <span className="text-[7px] font-mono text-[#8A8A8A]">LAST 24H</span>
                 </div>
                 <div className="flex flex-col p-2.5 rounded-xl bg-black/50 border border-white/5">

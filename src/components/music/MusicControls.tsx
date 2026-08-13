@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Track } from "@/data/musicTracks";
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MusicControlsProps {
@@ -79,25 +79,34 @@ export default function MusicControls({
       : currentTime;
 
   return (
-    <div className="w-full max-w-md flex flex-col items-center gap-2 px-4 select-none">
-      {/* Active Track Editorial Information */}
-      <div className="flex flex-col items-center text-center gap-0.5">
-        <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight uppercase truncate max-w-xs sm:max-w-md">
+    <div className="w-full max-w-sm flex flex-col items-center gap-4 px-4 select-none">
+      
+      {/* ── 1. ACTIVE TRACK METADATA ── */}
+      <div className="flex flex-col items-center text-center gap-1.5">
+        {/* Title */}
+        <h2 className="font-sans text-xl sm:text-2xl font-black text-white tracking-tighter uppercase leading-none truncate max-w-xs sm:max-w-md">
           {currentTrack.title}
         </h2>
-        <div className="flex items-center gap-1.5 text-xs font-mono text-[#A1A1AA] tracking-widest uppercase">
+        {/* Artist & Metadata */}
+        <div className="flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] text-[#8A8A8A] tracking-[0.25em] uppercase">
           <span>{currentTrack.artist}</span>
-          <span className="text-[#6E1A2B]">·</span>
-          <span className="text-[#8A8A8A] font-light">{currentTrack.genre}</span>
+          <span className="text-[#B52F43]/60">·</span>
+          <span>{currentTrack.genre}</span>
         </div>
       </div>
 
-      {/* Seekable Progress Bar & Timestamps */}
-      <div className="w-full flex flex-col gap-1">
+      {/* ── 2. REFINED TIMELINE & SEEK BAR ── */}
+      <div className="w-full flex items-center gap-3">
+        {/* Current Time */}
+        <span className="font-mono text-[9px] text-[#666] select-none min-w-[32px] text-right">
+          {formatTime(displayCurrentTime)}
+        </span>
+
+        {/* Progress Bar Container */}
         <div
           ref={progressBarRef}
           onPointerDown={handlePointerDown}
-          className="group relative w-full h-3 flex items-center cursor-pointer touch-none"
+          className="group relative flex-1 h-3 flex items-center cursor-pointer touch-none"
           role="slider"
           aria-label="Seek track"
           aria-valuenow={Math.round(displayCurrentTime)}
@@ -105,50 +114,49 @@ export default function MusicControls({
           aria-valuemax={Math.round(duration) || 0}
         >
           {/* Background Track */}
-          <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden transition-all group-hover:h-1.5">
+          <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden transition-all group-hover:h-[4px]">
             <div
-              className="h-full bg-[#6E1A2B] rounded-full transition-[width] duration-75 ease-linear"
+              className="h-full bg-[#B52F43] rounded-full transition-[width] duration-75 ease-linear"
               style={{ width: `${Math.min(100, Math.max(0, displayProgress))}%` }}
             />
           </div>
 
           {/* Scrub Handle Thumb */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full shadow-md border-2 border-[#6E1A2B] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full border border-[#B52F43] shadow-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
             style={{ left: `${Math.min(100, Math.max(0, displayProgress))}%` }}
           />
         </div>
 
-        {/* Timestamps */}
-        <div className="flex items-center justify-between text-[10px] font-mono text-[#8A8A8A] px-0.5">
-          <span>{formatTime(displayCurrentTime)}</span>
-          <span>{formatTime(duration)}</span>
-        </div>
+        {/* Total Duration */}
+        <span className="font-mono text-[9px] text-[#666] select-none min-w-[32px] text-left">
+          {formatTime(duration)}
+        </span>
       </div>
 
-      {/* Minimal Playback Controls */}
-      <div className="flex items-center gap-5 pt-0.5">
+      {/* ── 3. EDITORIAL PLAYBACK CONTROLS ── */}
+      <div className="flex items-center gap-6 pt-1">
         {/* Previous Button */}
         <button
           type="button"
           onClick={onPrev}
           aria-label="Previous song"
-          className="p-2 rounded-full text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-all active:scale-90"
+          className="p-2 text-white/40 hover:text-white transition-colors active:scale-90"
         >
           <SkipBack className="w-4 h-4 fill-current" />
         </button>
 
-        {/* Center Play / Pause Button */}
+        {/* Play/Pause Button (Editorial Wireframe Design) */}
         <button
           type="button"
           onClick={onTogglePlay}
           aria-label={isPlaying ? "Pause" : "Play"}
-          className="relative p-3 rounded-full bg-[#6E1A2B] hover:bg-[#5C1222] text-white shadow-[0_0_20px_rgba(110,26,43,0.5)] transition-all transform hover:scale-105 active:scale-95"
+          className="relative p-3.5 rounded-full border border-white/15 bg-white/[0.03] text-white shadow-[0_0_15px_rgba(255,255,255,0.02)] transition-all duration-300 hover:scale-105 active:scale-95 hover:border-[#B52F43]/60 hover:text-[#B52F43] hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]"
         >
           {isPlaying ? (
-            <Pause className="w-5 h-5 fill-current" />
+            <Pause className="w-4 h-4 fill-current" />
           ) : (
-            <Play className="w-5 h-5 fill-current translate-x-0.5" />
+            <Play className="w-4 h-4 fill-current translate-x-0.5" />
           )}
         </button>
 
@@ -157,7 +165,7 @@ export default function MusicControls({
           type="button"
           onClick={onNext}
           aria-label="Next song"
-          className="p-2 rounded-full text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-all active:scale-90"
+          className="p-2 text-white/40 hover:text-white transition-colors active:scale-90"
         >
           <SkipForward className="w-4 h-4 fill-current" />
         </button>

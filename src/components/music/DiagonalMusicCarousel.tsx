@@ -63,43 +63,12 @@ export default function DiagonalMusicCarousel({
     [tracks.length, onSelectTrack]
   );
 
-  // Attach non-passive wheel listener once on mount
+  // No-op or cleanup wheel listener refs to disable scroll-to-browse
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    let isHovered = false;
-
-    const onMouseEnter = () => {
-      isHovered = true;
-    };
-    const onMouseLeave = () => {
-      isHovered = false;
-    };
-
-    const windowWheelHandler = (e: WheelEvent) => {
-      if (isHovered) {
-        handleWheel(e);
-      }
-    };
-
-    el.addEventListener("mouseenter", onMouseEnter);
-    el.addEventListener("mouseleave", onMouseLeave);
-    el.addEventListener("wheel", handleWheel, { passive: false });
-    if (typeof window !== "undefined") {
-      window.addEventListener("wheel", windowWheelHandler, { passive: false });
-    }
-
     return () => {
-      el.removeEventListener("mouseenter", onMouseEnter);
-      el.removeEventListener("mouseleave", onMouseLeave);
-      el.removeEventListener("wheel", handleWheel);
-      if (typeof window !== "undefined") {
-        window.removeEventListener("wheel", windowWheelHandler);
-      }
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
-  }, [handleWheel]);
+  }, []);
 
   // Keyboard navigation listener (Arrow Left/Right, Up/Down)
   useEffect(() => {
@@ -136,17 +105,17 @@ export default function DiagonalMusicCarousel({
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-4xl h-[250px] sm:h-[290px] md:h-[310px] flex flex-col items-center justify-center select-none overflow-visible touch-none cursor-grab active:cursor-grabbing"
+      className="relative w-full max-w-5xl h-[360px] sm:h-[420px] md:h-[480px] flex flex-col items-center justify-center select-none overflow-visible touch-none cursor-grab active:cursor-grabbing"
     >
       {/* Ambient Crimson Glow behind active artwork */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 sm:w-72 sm:h-72 bg-[#6E1A2B]/20 rounded-full blur-3xl pointer-events-none transition-all duration-700" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 bg-[#F43F5E]/15 rounded-full blur-3xl pointer-events-none transition-all duration-700" />
 
       {/* Side Quick Navigation Arrow Badges */}
       <button
         type="button"
         onClick={() => onSelectTrack((activeIndex - 1 + tracks.length) % tracks.length)}
         aria-label="Previous song"
-        className="absolute left-2 sm:left-6 z-40 p-2 sm:p-2.5 rounded-full bg-black/50 border border-white/10 hover:border-white/30 text-white/70 hover:text-white backdrop-blur-md transition-all hover:scale-110 active:scale-95"
+        className="absolute left-2 sm:left-8 z-40 p-2.5 sm:p-3 rounded-full bg-black/60 border border-white/10 hover:border-white/30 text-white/70 hover:text-white backdrop-blur-md transition-all hover:scale-110 active:scale-95"
       >
         <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>
@@ -155,7 +124,7 @@ export default function DiagonalMusicCarousel({
         type="button"
         onClick={() => onSelectTrack((activeIndex + 1) % tracks.length)}
         aria-label="Next song"
-        className="absolute right-2 sm:right-6 z-40 p-2 sm:p-2.5 rounded-full bg-black/50 border border-white/10 hover:border-white/30 text-white/70 hover:text-white backdrop-blur-md transition-all hover:scale-110 active:scale-95"
+        className="absolute right-2 sm:right-8 z-40 p-2.5 sm:p-3 rounded-full bg-black/50 border border-white/10 hover:border-white/30 text-white/70 hover:text-white backdrop-blur-md transition-all hover:scale-110 active:scale-95"
       >
         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>
@@ -166,10 +135,10 @@ export default function DiagonalMusicCarousel({
           const offset = index - activeIndex;
           const isActive = offset === 0;
 
-          // Spatial diagonal transformation calculations
-          const xOffset = offset * 125; // Horizontal diagonal spacing
-          const yOffset = offset * 28; // Vertical diagonal offset
-          const rotation = offset * -6; // Spatial tilt
+          // Spatial diagonal transformation calculations - scaled wider for full screen
+          const xOffset = offset * 210; // Horizontal spacing
+          const yOffset = offset * 38;  // Vertical shift
+          const rotation = offset * -6;  // Spatial tilt
           const scale = isActive ? 1 : Math.max(0.72, 1 - Math.abs(offset) * 0.14);
           const opacity = isActive ? 1 : Math.max(0.35, 1 - Math.abs(offset) * 0.35);
           const zIndex = isActive ? 30 : 20 - Math.abs(offset);
@@ -211,8 +180,8 @@ export default function DiagonalMusicCarousel({
                 className={cn(
                   "relative rounded-2xl overflow-hidden border transition-all duration-500 bg-black/60",
                   isActive
-                    ? "w-[210px] h-[210px] sm:w-[260px] sm:h-[260px] md:w-[280px] md:h-[280px] border-white/25 shadow-[0_18px_40px_rgba(0,0,0,0.85),0_0_28px_rgba(255,77,31,0.2)]"
-                    : "w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] md:w-[195px] md:h-[195px] border-white/10 shadow-[0_10px_25px_rgba(0,0,0,0.55)]"
+                    ? "w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] md:w-[340px] md:h-[340px] border-white/25 shadow-[0_18px_40px_rgba(0,0,0,0.85),0_0_28px_rgba(244,63,94,0.25)]"
+                    : "w-[150px] h-[150px] sm:w-[190px] sm:h-[190px] md:w-[210px] md:h-[210px] border-white/10 shadow-[0_10px_25px_rgba(0,0,0,0.55)]"
                 )}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}

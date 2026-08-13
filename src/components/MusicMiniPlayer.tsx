@@ -1,13 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAudio } from "@/context/AudioContext";
 import { Play, Pause, SkipForward, SkipBack } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function MusicMiniPlayer() {
   const { currentTrack, isPlaying, togglePlay, nextTrack, prevTrack, progress } = useAudio();
   const [isHovered, setIsHovered] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Only show on home page root ("/") and within the hero section height boundary
+  const isHeroPage = pathname === "/";
+  const showPlayer = isHeroPage && scrollY < 400;
+
+  if (!showPlayer) return null;
 
   return (
     <div
@@ -82,7 +99,7 @@ export default function MusicMiniPlayer() {
             className="flex flex-col min-w-0 flex-1 pr-2 hover:opacity-80 transition-opacity"
             title="Open Music Hub"
           >
-            <span className="text-xs font-bold text-white truncate hover:text-[#FF4D1F] transition-colors">
+            <span className="text-xs font-bold text-white truncate hover:text-[#6E1A2B] transition-colors">
               {currentTrack.title}
             </span>
             <span className="text-[10px] font-mono text-[#8A8A8A] truncate uppercase tracking-wider">
